@@ -39,7 +39,7 @@ export class MyElement extends LitElement {
 
   override render() {
     return html`
-     Updated Text 
+     Updated New Text 
     `;
   }
 
@@ -48,7 +48,7 @@ export class MyElement extends LitElement {
    * @param name The name to say "Hello" to
    */
   sayHello(name: string): string {
-    return `Hello, ${name}`;
+    return `Greetings, ${name}`;
   }
 }
 

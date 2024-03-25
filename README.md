@@ -1,26 +1,7 @@
-# LitElement TypeScript starter
+# A Simple Solid Calendar/Planner 
 
-This project includes a sample component using LitElement with TypeScript.
+This project was created for the [March 2024 Solid Hackathon](https://solidhack.org/). The goal is to produce an easy-to-use calendar application that integrates with a solid pod and can be easily embedded in other solid apps. 
 
-This template is generated from the `lit-starter-ts` package in [the main Lit
-repo](https://github.com/lit/lit). Issues and PRs for this template should be
-filed in that repo.
-
-## About this release
-
-This is a pre-release of Lit 3.0, the next major version of Lit.
-
-Lit 3.0 has very few breaking changes from Lit 2.0:
-
-- Drops support for IE11
-- Published as ES2021
-- Removes a couple of deprecated Lit 1.x APIs
-
-Lit 3.0 should require no changes to upgrade from Lit 2.0 for the vast majority of users. Once the full release is published, most apps and libraries will be able to extend their npm version ranges to include both 2.x and 3.x, like `"^2.7.0 || ^3.0.0"`.
-
-Lit 2.x and 3.0 are _interoperable_: templates, base classes, directives, decorators, etc., from one version of Lit will work with those from another.
-
-Please file any issues you find on our [issue tracker](https://github.com/lit/lit/issues).
 
 ## Setup
 
@@ -47,6 +28,32 @@ npm run build:watch
 ```
 
 Both the TypeScript compiler and lit-analyzer are configured to be very strict. You may want to change `tsconfig.json` to make them less strict.
+
+## Developing
+
+We have a few dev tools:
+
+1. The typescript compiler
+2. A web server that serves the javascript bundle output by tsc
+3. A solid server so you don't need to go hunting for a profile
+
+We recommend developing like this:
+
+In one terminal, run tsc under watch mode:
+```bash
+npm run build:watch
+```
+
+In a second terminal run the dev server under watch mode:
+```bash
+npm run serve
+```
+
+In a third run the solid server
+```bash
+npm run pod
+```
+This will get you set up with everything you need to test the app, and will automatically refresh after any changes.
 
 ## Testing
 
@@ -80,20 +87,6 @@ npm run serve
 ```
 
 There is a development HTML file located at `/dev/index.html` that you can view at http://localhost:8000/dev/index.html. Note that this command will serve your code using Lit's development mode (with more verbose errors). To serve your code against Lit's production mode, use `npm run serve:prod`.
-
-## Editing
-
-If you use VS Code, we highly recommend the [lit-plugin extension](https://marketplace.visualstudio.com/items?itemName=runem.lit-plugin), which enables some extremely useful features for lit-html templates:
-
-- Syntax highlighting
-- Type-checking
-- Code completion
-- Hover-over docs
-- Jump to definition
-- Linting
-- Quick Fixes
-
-The project is setup to recommend lit-plugin to VS Code users if they don't already have it installed.
 
 ## Linting
 
