@@ -32,7 +32,7 @@
     "test:prod": "MODE=prod wtr",
     "test:prod:watch": "MODE=prod wtr --watch",
     "checksize": "rollup -c ; cat my-element.bundled.js | gzip -9 | wc -c ; rm my-element.bundled.js",
-    "build:ldo": "ldo build --input src/shapes --output src/ldo"
+    "build:ldo": "ldo build --input src/.shapes --output src/.ldo"
   },
   "keywords": [
     "web-components",
@@ -45,13 +45,15 @@
   "dependencies": {
     "@inrupt/solid-client-authn-browser": "^2.1.0",
     "@solid/community-server": "^7.0.4",
-    "ldo": "^1.0.3",
+    "@ldo/ldo": "^0.0.1-alpha.24",
+    "@ldo/solid-react": "^0.0.1-alpha.24",
     "lit": "^3.0.0"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
     "@custom-elements-manifest/analyzer": "^0.6.3",
+    "@ldo/cli": "^0.0.1-alpha.24",
     "@open-wc/testing": "^3.1.5",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-replace": "^5.0.2",
