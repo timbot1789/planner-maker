@@ -1,6 +1,7 @@
 /node_modules/
 /lib/
 /test/
+data/
 custom-elements.json
 docs/node_modules/
 # top level source
