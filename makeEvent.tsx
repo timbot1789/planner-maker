@@ -4,12 +4,14 @@ import { v4 } from "uuid";
 import { useLdo } from "@ldo/solid-react";
 import { EventShShapeType } from "./src/.ldo/event.shapeTypes";
 
-export const MakePost: FunctionComponent<{ mainContainer?: Container }> = ({
+export const MakeEvent: FunctionComponent<{ mainContainer?: Container }> = ({
   mainContainer,
 }) => {
   const [message, setMessage] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState(""); 
   const [selectedFile, setSelectedFile] = useState<File | undefined>();
-  
+
 
   const { createData, commitData } = useLdo();
 
@@ -17,80 +19,88 @@ export const MakePost: FunctionComponent<{ mainContainer?: Container }> = ({
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      // Don't create a post is main container isn't present
+      // Don't create a event is main container isn't present
       if (!mainContainer) return;
 
-      // Create the container for the post
-      const postContainerResult = await mainContainer.createChildAndOverwrite(
+      // Create the container for the event
+      const eventContainerResult = await mainContainer.createChildAndOverwrite(
         `${v4()}/`
       );
       // Check if there was an error
-      if (postContainerResult.isError) {
-        alert(postContainerResult.message);
+      if (eventContainerResult.isError) {
+        alert(eventContainerResult.message);
         return;
       }
-      const postContainer = postContainerResult.resource;
+      const eventContainer = eventContainerResult.resource;
       console.log('here')
 
       // Upload Image
       let uploadedImage: Leaf | undefined;
       if (selectedFile) {
-        const result = await postContainer.uploadChildAndOverwrite(
+        const result = await eventContainer.uploadChildAndOverwrite(
           selectedFile.name as LeafUri,
           selectedFile,
           selectedFile.type
         );
         if (result.isError) {
           alert(result.message);
-          await postContainer.delete();
+          await eventContainer.delete();
           return;
         }
         uploadedImage = result.resource;
       }
 
-      // Create Post
-      const indexResource = postContainer.child("index.ttl");
-      // Create new data of type "Post" where the subject is the index
+      // Create event
+      const indexResource = eventContainer.child("index.ttl");
+      // Create new data of type "event" where the subject is the index
       // resource's uri, and write any changes to the indexResource.
-      const post = createData(
+      const event = createData(
         EventShShapeType,
         indexResource.uri,
         indexResource
       );
-      console.log(post)
+      console.log(event)
       // Set the article body
-      post.articleBody = message;
+      event.description = message;
       if (uploadedImage) {
         // Link the URI to the 
-        post.image = { "@id": uploadedImage.uri };
+        //event.image = { "@id": uploadedImage.uri };
       }
-      // Say that the type is a "SocialMediaPosting"
-      post.type = { "@id": "SocialMediaPosting" };
+      // Say that the type is a "SocialMediaeventing"
+      event.type = { "@id": "Event" };
       // Add an upload date
-      post.uploadDate = new Date().toISOString();
+      event.startDate = startDate
+      // Add an upload date
+      event.endDate = endDate;
       // The commitData function handles sending the data to the Pod.
-      const result = await commitData(post);
+      const result = await commitData(event);
       if (result.isError) {
         alert(result.message);
       }
     },
-    [mainContainer, selectedFile, createData, message, commitData]
+    [mainContainer, createData, message, commitData]
   );
 
   return (
     <form onSubmit={onSubmit}>
       <input
-        type="text"
-        placeholder="Make a Post"
+        type="description"
+        placeholder="Make a event"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
       <input
-        type="file"
-        accept="image/*"
-        onChange={(e) => setSelectedFile(e.target.files?.[0])}
+        type="date"
+        placeholder="Start Date"
+        value={startDate}
+        onChange={(e) => setStartDate(e.target.value)}
       />
-      <input type="submit" value="Post" />
+      <input
+        type="date"
+        placeholder="End Date"
+        value={endDate}
+        onChange={(e) => setEndDate(e.target.value)}
+      />
     </form>
   );
 };
