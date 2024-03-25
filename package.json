@@ -43,6 +43,7 @@
   "author": "Google LLC",
   "license": "BSD-3-Clause",
   "dependencies": {
+    "@inrupt/solid-client-authn-browser": "^2.1.0",
     "@solid/community-server": "^7.0.4",
     "ldo": "^1.0.3",
     "lit": "^3.0.0"
