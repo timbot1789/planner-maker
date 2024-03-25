@@ -1,4 +1,4 @@
-import { ShapeType } from "@ldo/ldo";
+import { ShapeType } from "ldo";
 import { eventSchema } from "./event.schema";
 import { eventContext } from "./event.context";
 import { EventSh } from "./event.typings";

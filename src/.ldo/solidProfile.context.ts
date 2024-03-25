@@ -8,6 +8,7 @@ import { ContextDefinition } from "jsonld";
 export const solidProfileContext: ContextDefinition = {
   type: {
     "@id": "@type",
+    "@container": "@set",
   },
   Person: "http://schema.org/Person",
   Person2: "http://xmlns.com/foaf/0.1/Person",
@@ -63,6 +64,7 @@ export const solidProfileContext: ContextDefinition = {
   value: {
     "@id": "http://www.w3.org/2006/vcard/ns#value",
     "@type": "@id",
+    "@container": "@set",
   },
   hasPhoto: {
     "@id": "http://www.w3.org/2006/vcard/ns#hasPhoto",
