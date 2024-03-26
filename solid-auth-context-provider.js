@@ -9,6 +9,7 @@ import { provide } from '@lit/context';
 import { solidAuthContext } from './solid-auth-context';
 import { customElement } from 'lit/decorators.js';
 import { EVENTS } from './constants/EVENTS';
+import { login, getDefaultSession } from '@inrupt/solid-client-authn-browser';
 /**
  * An example element.
  *
@@ -24,9 +25,22 @@ let SolidAuthContextProvider = class SolidAuthContextProvider extends LitElement
             fetch: globalThis.fetch,
             isLoggedIn: false
         };
+        console.log("hello");
         this.addEventListener(EVENTS.UPDATE_OIDC, (e) => {
+            console.log("update");
             this.solidAuthData = { ...this.solidAuthData, oidcProvider: e.detail };
         });
+        this.addEventListener(EVENTS.LOGIN, this._handleLogin);
+    }
+    async _handleLogin() {
+        // Start the Login Process if not already logged in.
+        if (!getDefaultSession().info.isLoggedIn) {
+            await login({
+                oidcIssuer: this.solidAuthData.oidcProvider.toString(),
+                redirectUrl: window.location.href,
+                clientName: "Solid Calendar"
+            });
+        }
     }
     render() { return html `<slot></slot>`; }
 };

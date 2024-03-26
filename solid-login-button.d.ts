@@ -7,6 +7,7 @@ import { LitElement } from 'lit';
  * @csspart button - The button
  */
 export declare class SolidLoginButton extends LitElement {
+    private _handleLogin;
     render(): import("lit-html").TemplateResult<1>;
 }
 declare global {

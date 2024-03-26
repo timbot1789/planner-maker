@@ -6,6 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
+import { EVENTS } from './constants/EVENTS';
 /**
  * An example element.
  *
@@ -14,8 +15,11 @@ import { customElement } from 'lit/decorators.js';
  * @csspart button - The button
  */
 let SolidLoginButton = class SolidLoginButton extends LitElement {
+    _handleLogin() {
+        this.dispatchEvent(new CustomEvent(EVENTS.LOGIN, { bubbles: true }));
+    }
     render() {
-        return html `<button>Login</button>`;
+        return html `<button @click=${this._handleLogin}>Login</button>`;
     }
 };
 SolidLoginButton = __decorate([

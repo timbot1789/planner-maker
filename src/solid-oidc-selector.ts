@@ -1,7 +1,5 @@
 import {LitElement, html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
-import { consume } from '@lit/context';
-import { ISolidAuthContext, solidAuthContext } from './solid-auth-context';
 import { EVENTS } from './constants/EVENTS';
 /**
  * An example element.
@@ -14,18 +12,14 @@ import { EVENTS } from './constants/EVENTS';
 export class SolidOidcSelector extends LitElement {
   @property() oidcOptions = [new URL("http://localhost:3000"), new URL("https://login.inrupt.com"), new URL("https://solidcommunity.net")]
 
-  
-  @consume({context: solidAuthContext, subscribe: true })
-  solidAuthData?: ISolidAuthContext;
-
   private _selectHandler(e: Event) {
-      const target = e.target as HTMLSelectElement;
-this.dispatchEvent(
-    new CustomEvent(EVENTS.UPDATE_OIDC, {
+    const target = e.target as HTMLSelectElement;
+    const evt = new CustomEvent(EVENTS.UPDATE_OIDC, {
       bubbles: true,
       detail: target.value,
-    }),
-  );
+    })
+    console.log("evt", evt);
+    this.dispatchEvent(evt);
   }
 
   override render() {

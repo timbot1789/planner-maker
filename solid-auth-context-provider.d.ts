@@ -10,6 +10,7 @@ import { ISolidAuthContext } from './solid-auth-context';
 export declare class SolidAuthContextProvider extends LitElement {
     constructor();
     solidAuthData: ISolidAuthContext;
+    private _handleLogin;
     render(): import("lit-html").TemplateResult<1>;
 }
 declare global {

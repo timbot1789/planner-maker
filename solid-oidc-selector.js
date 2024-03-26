@@ -6,8 +6,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { consume } from '@lit/context';
-import { solidAuthContext } from './solid-auth-context';
 import { EVENTS } from './constants/EVENTS';
 /**
  * An example element.
@@ -23,10 +21,12 @@ let SolidOidcSelector = class SolidOidcSelector extends LitElement {
     }
     _selectHandler(e) {
         const target = e.target;
-        this.dispatchEvent(new CustomEvent(EVENTS.UPDATE_OIDC, {
+        const evt = new CustomEvent(EVENTS.UPDATE_OIDC, {
             bubbles: true,
             detail: target.value,
-        }));
+        });
+        console.log("evt", evt);
+        this.dispatchEvent(evt);
     }
     render() {
         return html `
@@ -39,9 +39,6 @@ let SolidOidcSelector = class SolidOidcSelector extends LitElement {
 __decorate([
     property()
 ], SolidOidcSelector.prototype, "oidcOptions", void 0);
-__decorate([
-    consume({ context: solidAuthContext, subscribe: true })
-], SolidOidcSelector.prototype, "solidAuthData", void 0);
 SolidOidcSelector = __decorate([
     customElement('solid-oidc-selector')
 ], SolidOidcSelector);
