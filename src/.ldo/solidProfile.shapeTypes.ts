@@ -1,6 +1,6 @@
-import {ShapeType} from 'ldo';
-import {solidProfileSchema} from './solidProfile.schema';
-import {solidProfileContext} from './solidProfile.context';
+import { ShapeType } from "@ldo/ldo";
+import { solidProfileSchema } from "./solidProfile.schema";
+import { solidProfileContext } from "./solidProfile.context";
 import {
   SolidProfileShape,
   AddressShape,
