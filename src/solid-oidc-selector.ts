@@ -27,6 +27,11 @@ export class SolidOidcSelector extends LitElement {
 
   override render() {
     return html`
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css"
+        type="text/css"
+      />
       <select @change=${this._selectHandler}>
         ${this.oidcOptions.map(
           (option) => html`<option value=${option}>${option}</option>`

@@ -16,7 +16,12 @@ export class SolidLoginButton extends LitElement {
   }
 
   override render() {
-    return html`<button @click=${this._handleLogin}>Login</button>`;
+    return html` <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css"
+        type="text/css"
+      />
+      <button @click=${this._handleLogin}>Login</button>`;
   }
 }
 
