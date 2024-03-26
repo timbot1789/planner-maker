@@ -21,7 +21,7 @@ let TestContextConsumer = class TestContextConsumer extends LitElement {
     }
 };
 __decorate([
-    consume({ context: solidAuthContext })
+    consume({ context: solidAuthContext, subscribe: true })
 ], TestContextConsumer.prototype, "solidAuthData", void 0);
 TestContextConsumer = __decorate([
     customElement('test-context-consumer')

@@ -1,5 +1,5 @@
 import { LitElement } from 'lit';
-import { SolidAuthContext } from './solid-auth-context';
+import { ISolidAuthContext } from './solid-auth-context';
 /**
  * An example element.
  *
@@ -8,7 +8,9 @@ import { SolidAuthContext } from './solid-auth-context';
  * @csspart button - The button
  */
 export declare class SolidAuthContextProvider extends LitElement {
-    solidAuthData: SolidAuthContext;
+    constructor();
+    solidAuthData: ISolidAuthContext;
+    render(): import("lit-html").TemplateResult<1>;
 }
 declare global {
     interface HTMLElementTagNameMap {

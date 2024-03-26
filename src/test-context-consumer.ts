@@ -13,7 +13,7 @@ import { ISolidAuthContext, solidAuthContext } from './solid-auth-context';
 @customElement('test-context-consumer')
 export class TestContextConsumer extends LitElement {
 
-  @consume({context: solidAuthContext})
+  @consume({context: solidAuthContext, subscribe: true })
   solidAuthData?: ISolidAuthContext;
 
   override render() {

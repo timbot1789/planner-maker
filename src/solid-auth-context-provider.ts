@@ -1,7 +1,8 @@
-import {LitElement} from 'lit';
+import {LitElement, html} from 'lit';
 import {provide} from '@lit/context';
-import { SolidAuthContext, solidAuthContext } from './solid-auth-context';
+import { ISolidAuthContext, solidAuthContext } from './solid-auth-context';
 import {customElement} from 'lit/decorators.js';
+import { EVENTS } from './constants/EVENTS';
 
 /**
  * An example element.
@@ -13,8 +14,21 @@ import {customElement} from 'lit/decorators.js';
 @customElement('solid-auth-context-provider')
 export class SolidAuthContextProvider extends LitElement {
 
+  constructor() {
+    super();
+    this.addEventListener(EVENTS.UPDATE_OIDC, (e: Event) => {
+      this.solidAuthData = {...this.solidAuthData, oidcProvider: (e as CustomEvent).detail}
+    });
+  }
   @provide({context: solidAuthContext})
-  solidAuthData = new SolidAuthContext();
+  solidAuthData: ISolidAuthContext = {
+    oidcProvider: new URL("http://localhost:3000"),
+    fetch: globalThis.fetch,
+    isLoggedIn: false
+  };
+
+
+  override render() { return html`<slot></slot>`}
 }
 
 declare global {
