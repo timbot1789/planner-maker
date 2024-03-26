@@ -3,7 +3,12 @@ import {provide} from '@lit/context';
 import {ISolidAuthContext, solidAuthContext} from './solid-auth-context';
 import {customElement, state} from 'lit/decorators.js';
 import {EVENTS} from './constants/EVENTS';
-import {login, getDefaultSession, handleIncomingRedirect, fetch} from '@inrupt/solid-client-authn-browser';
+import {
+  login,
+  getDefaultSession,
+  handleIncomingRedirect,
+  fetch,
+} from '@inrupt/solid-client-authn-browser';
 
 /**
  * An example element.
@@ -24,16 +29,14 @@ export class SolidAuthContextProvider extends LitElement {
     });
     this.addEventListener(EVENTS.LOGIN, () => this._handleLogin());
     this.addEventListener(EVENTS.LOGOUT, () => this._handleLogout());
-    handleIncomingRedirect({ restorePreviousSession: true }).then(
-      () => {
-        const sessionInfo = getDefaultSession().info;
-        this.solidAuthData = {
-          ...this.solidAuthData,
-          ...sessionInfo,
-          fetch: fetch
-        }
-      }
-    );
+    handleIncomingRedirect({restorePreviousSession: true}).then(() => {
+      const sessionInfo = getDefaultSession().info;
+      this.solidAuthData = {
+        ...this.solidAuthData,
+        ...sessionInfo,
+        fetch: fetch,
+      };
+    });
   }
 
   @provide({context: solidAuthContext})
@@ -43,7 +46,7 @@ export class SolidAuthContextProvider extends LitElement {
     fetch: globalThis.fetch,
     isLoggedIn: false,
   };
-  
+
   private async _handleLogin() {
     // Start the Login Process if not already logged in.
     if (!getDefaultSession().info.isLoggedIn) {
@@ -56,23 +59,20 @@ export class SolidAuthContextProvider extends LitElement {
   }
 
   private async _handleLogout() {
-    console.log("logout", getDefaultSession());
-    await getDefaultSession().logout({ logoutType: 'app'});
+    await getDefaultSession().logout({logoutType: 'app'});
     const sessionInfo = getDefaultSession().info;
     this.solidAuthData = {
       ...this.solidAuthData,
       ...sessionInfo,
-      fetch: fetch
-    }
+      fetch: fetch,
+    };
   }
 
   override render() {
     return html`<div>
-      ${
-        this.solidAuthData.isLoggedIn ?
-          html`<slot name="isLoggedIn"></slot>`:
-          html`<slot name="isLoggedOut"></slot>`
-      }
+      ${this.solidAuthData.isLoggedIn
+        ? html`<slot name="isLoggedIn"></slot>`
+        : html`<slot name="isLoggedOut"></slot>`}
       <slot></slot>
     </div>`;
   }
