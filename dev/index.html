@@ -4,30 +4,34 @@
   <head>
     <meta charset="utf-8" />
     <title>&lt;my-element> Demo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css" type="text/css">
     <script src="../node_modules/lit/polyfill-support.js"></script>
     <script type="module" src="/src/solid-calendar.ts"></script>
     <script type="module" src="/src/solid-auth-context-provider.ts"></script>
     <script type="module" src="/src/solid-login-button.ts"></script>
+    <script type="module" src="/src/solid-logout-button.ts"></script>
     <script type="module" src="/src/solid-oidc-selector.ts"></script>
-    <script type="module" src="/src/test-context-consumer.ts"></script>
     <style>
-      p {
+      footer {
         border: solid 1px blue;
+        margin-top: 8px;
         padding: 8px;
       }
     </style>
   </head>
   <body>
     <solid-auth-context-provider>
-      <div>
+      <div slot="isLoggedOut">
         <solid-oidc-selector></solid-oidc-selector>
         <solid-login-button></solid-login-button>
       </div>
-      <solid-calendar>
-        <p>This is child content</p>
-      </solid-calendar>
-      <p>This is added content</p>
-      <test-context-consumer></test-context-consumer>
+      <div slot="isLoggedIn">
+        <solid-logout-button></solid-logout-button> 
+        <solid-calendar>
+          <p>This is child content</p>
+        </solid-calendar>
+      </div>
+      <footer>This is added content</footer>
     </solid-auth-context-provider>
   </body>
 </html>

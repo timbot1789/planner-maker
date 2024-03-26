@@ -1,9 +1,9 @@
 import {LitElement, html} from 'lit';
 import {provide} from '@lit/context';
 import {ISolidAuthContext, solidAuthContext} from './solid-auth-context';
-import {customElement} from 'lit/decorators.js';
+import {customElement, state} from 'lit/decorators.js';
 import {EVENTS} from './constants/EVENTS';
-import {login, getDefaultSession} from '@inrupt/solid-client-authn-browser';
+import {login, getDefaultSession, handleIncomingRedirect, fetch} from '@inrupt/solid-client-authn-browser';
 
 /**
  * An example element.
@@ -22,20 +22,32 @@ export class SolidAuthContextProvider extends LitElement {
         oidcProvider: (e as CustomEvent).detail,
       };
     });
-    this.addEventListener(EVENTS.LOGIN, async () => await this._handleLogin());
+    this.addEventListener(EVENTS.LOGIN, () => this._handleLogin());
+    this.addEventListener(EVENTS.LOGOUT, () => this._handleLogout());
+    handleIncomingRedirect({ restorePreviousSession: true }).then(
+      () => {
+        const sessionInfo = getDefaultSession().info;
+        this.solidAuthData = {
+          ...this.solidAuthData,
+          ...sessionInfo,
+          fetch: fetch
+        }
+      }
+    );
   }
 
   @provide({context: solidAuthContext})
+  @state()
   solidAuthData: ISolidAuthContext = {
-    oidcProvider: new URL('http://localhost:3000'),
+    oidcProvider: new URL('http://localhost:3001'),
     fetch: globalThis.fetch,
     isLoggedIn: false,
   };
-
+  
   private async _handleLogin() {
     // Start the Login Process if not already logged in.
     if (!getDefaultSession().info.isLoggedIn) {
-      await login({
+      login({
         oidcIssuer: this.solidAuthData.oidcProvider.toString(),
         redirectUrl: window.location.href,
         clientName: 'Solid Calendar',
@@ -43,8 +55,26 @@ export class SolidAuthContextProvider extends LitElement {
     }
   }
 
+  private async _handleLogout() {
+    console.log("logout", getDefaultSession());
+    await getDefaultSession().logout({ logoutType: 'app'});
+    const sessionInfo = getDefaultSession().info;
+    this.solidAuthData = {
+      ...this.solidAuthData,
+      ...sessionInfo,
+      fetch: fetch
+    }
+  }
+
   override render() {
-    return html`<slot></slot>`;
+    return html`<div>
+      ${
+        this.solidAuthData.isLoggedIn ?
+          html`<slot name="isLoggedIn"></slot>`:
+          html`<slot name="isLoggedOut"></slot>`
+      }
+      <slot></slot>
+    </div>`;
   }
 }
 
