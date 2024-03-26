@@ -10,86 +10,25 @@ Install dependencies:
 npm i
 ```
 
-## Build
-
-This sample uses the TypeScript compiler to produce JavaScript that runs in modern browsers.
-
-To build the JavaScript version of your component:
-
-```bash
-npm run build
-```
-
-To watch files and rebuild when the files are modified, run the following command in a separate shell:
-
-```bash
-npm run build:watch
-```
-
-Both the TypeScript compiler and lit-analyzer are configured to be very strict. You may want to change `tsconfig.json` to make them less strict.
-
 ## Developing
 
-We have a few dev tools:
-
-1. The typescript compiler
-2. A web server that serves the javascript bundle output by tsc
-3. A solid server so you don't need to go hunting for a profile
+We are using Vite as our primary build tool. We also have a solid server to aid development.
 
 We recommend developing like this:
 
-In one terminal, run tsc under watch mode:
+In one terminal, run vite
 
 ```bash
-npm run build:watch
+npm run dev
 ```
 
-In a second terminal run the dev server under watch mode:
-
-```bash
-npm run serve
-```
-
-In a third run the solid server
+In a second terminal, run the solid server
 
 ```bash
 npm run pod
 ```
 
 This will get you set up with everything you need to test the app, and will automatically refresh after any changes.
-
-## Testing
-
-This sample uses modern-web.dev's
-[@web/test-runner](https://www.npmjs.com/package/@web/test-runner) for testing. See the
-[modern-web.dev testing documentation](https://modern-web.dev/docs/test-runner/overview) for
-more information.
-
-Tests can be run with the `test` script, which will run your tests against Lit's development mode (with more verbose errors) as well as against Lit's production mode:
-
-```bash
-npm test
-```
-
-For local testing during development, the `test:dev:watch` command will run your tests in Lit's development mode (with verbose errors) on every change to your source files:
-
-```bash
-npm test:watch
-```
-
-Alternatively the `test:prod` and `test:prod:watch` commands will run your tests in Lit's production mode.
-
-## Dev Server
-
-This sample uses modern-web.dev's [@web/dev-server](https://www.npmjs.com/package/@web/dev-server) for previewing the project without additional build steps. Web Dev Server handles resolving Node-style "bare" import specifiers, which aren't supported in browsers. It also automatically transpiles JavaScript and adds polyfills to support older browsers. See [modern-web.dev's Web Dev Server documentation](https://modern-web.dev/docs/dev-server/overview/) for more information.
-
-To run the dev server and open the project in a new browser tab:
-
-```bash
-npm run serve
-```
-
-There is a development HTML file located at `/dev/index.html` that you can view at http://localhost:8000/dev/index.html. Note that this command will serve your code using Lit's development mode (with more verbose errors). To serve your code against Lit's production mode, use `npm run serve:prod`.
 
 ## Linting
 
@@ -106,6 +45,11 @@ npm run lint
 ## Formatting
 
 [Prettier](https://prettier.io/) is used for code formatting. It has been pre-configured according to the Lit's style. You can change this in `.prettierrc.json`.
+
+You can run prettier with
+```bash
+npm run format
+```
 
 Prettier has not been configured to run when committing files, but this can be added with Husky and `pretty-quick`. See the [prettier.io](https://prettier.io/) site for instructions.
 
