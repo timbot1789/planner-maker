@@ -1,6 +1,6 @@
 import {LitElement, html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
-import { EVENTS } from './constants/EVENTS';
+import {EVENTS} from './constants/EVENTS';
 /**
  * An example element.
  *
@@ -10,23 +10,29 @@ import { EVENTS } from './constants/EVENTS';
  */
 @customElement('solid-oidc-selector')
 export class SolidOidcSelector extends LitElement {
-  @property() oidcOptions = [new URL("http://localhost:3000"), new URL("https://login.inrupt.com"), new URL("https://solidcommunity.net")]
+  @property() oidcOptions = [
+    new URL('http://localhost:3000'),
+    new URL('https://login.inrupt.com'),
+    new URL('https://solidcommunity.net'),
+  ];
 
   private _selectHandler(e: Event) {
     const target = e.target as HTMLSelectElement;
     const evt = new CustomEvent(EVENTS.UPDATE_OIDC, {
       bubbles: true,
       detail: target.value,
-    })
-    console.log("evt", evt);
+    });
+    console.log('evt', evt);
     this.dispatchEvent(evt);
   }
 
   override render() {
     return html`
-        <select @change=${this._selectHandler}>
-          ${this.oidcOptions.map(option => html`<option value=${option}>${option}</option>`)}
-        </select>
+      <select @change=${this._selectHandler}>
+        ${this.oidcOptions.map(
+          (option) => html`<option value=${option}>${option}</option>`
+        )}
+      </select>
     `;
   }
 }

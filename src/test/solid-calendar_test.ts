@@ -28,7 +28,9 @@ suite('solid-calendar', () => {
   });
 
   test('renders with a set name', async () => {
-    const el = await fixture(html`<solid-calendar name="Test"></solid-calendar>`);
+    const el = await fixture(
+      html`<solid-calendar name="Test"></solid-calendar>`
+    );
     assert.shadowDom.equal(
       el,
       `
@@ -40,7 +42,9 @@ suite('solid-calendar', () => {
   });
 
   test('handles a click', async () => {
-    const el = (await fixture(html`<solid-calendar></solid-calendar>`)) as SolidCalendar;
+    const el = (await fixture(
+      html`<solid-calendar></solid-calendar>`
+    )) as SolidCalendar;
     const button = el.shadowRoot!.querySelector('button')!;
     button.click();
     await el.updateComplete;
@@ -55,7 +59,9 @@ suite('solid-calendar', () => {
   });
 
   test('styling applied', async () => {
-    const el = (await fixture(html`<solid-calendar></solid-calendar>`)) as SolidCalendar;
+    const el = (await fixture(
+      html`<solid-calendar></solid-calendar>`
+    )) as SolidCalendar;
     await el.updateComplete;
     assert.equal(getComputedStyle(el).paddingTop, '16px');
   });

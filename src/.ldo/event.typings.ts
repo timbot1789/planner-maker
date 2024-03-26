@@ -1,4 +1,4 @@
-import { ContextDefinition } from "jsonld";
+import {ContextDefinition} from 'jsonld';
 
 /**
  * =============================================================================
@@ -10,20 +10,20 @@ import { ContextDefinition } from "jsonld";
  * EventSh Type
  */
 export interface EventSh {
-  "@id"?: string;
-  "@context"?: ContextDefinition;
+  '@id'?: string;
+  '@context'?: ContextDefinition;
   type:
     | {
-        "@id": "Event";
+        '@id': 'Event';
       }
     | {
-        "@id": "Thing";
+        '@id': 'Thing';
       };
   /**
    * The organizer of the calander event.
    */
   organizer: {
-    "@id": "Person";
+    '@id': 'Person';
   };
   /**
    * The description of the calander event
@@ -41,18 +41,18 @@ export interface EventSh {
    * The attendees of the calander event.
    */
   attendees?: {
-    "@id": "Person";
+    '@id': 'Person';
   };
   /**
    * The location at which the calander event will occur.
    */
   location?: {
-    "@id": "Place";
+    '@id': 'Place';
   };
   /**
    * Additional information about the calander event
    */
   about?: {
-    "@id": "Thing";
+    '@id': 'Thing';
   };
 }

@@ -1,7 +1,7 @@
 import {LitElement, html} from 'lit';
-import { consume } from '@lit/context';
+import {consume} from '@lit/context';
 import {customElement} from 'lit/decorators.js';
-import { ISolidAuthContext, solidAuthContext } from './solid-auth-context';
+import {ISolidAuthContext, solidAuthContext} from './solid-auth-context';
 
 /**
  * An example element.
@@ -12,12 +12,14 @@ import { ISolidAuthContext, solidAuthContext } from './solid-auth-context';
  */
 @customElement('test-context-consumer')
 export class TestContextConsumer extends LitElement {
-
-  @consume({context: solidAuthContext, subscribe: true })
+  @consume({context: solidAuthContext, subscribe: true})
   solidAuthData?: ISolidAuthContext;
 
   override render() {
-    return html`<p>This is a test consumer. The value of oidcProvider is ${this.solidAuthData?.oidcProvider}</p>`;
+    return html`<p>
+      This is a test consumer. The value of oidcProvider is
+      ${this.solidAuthData?.oidcProvider}
+    </p>`;
   }
 }
 

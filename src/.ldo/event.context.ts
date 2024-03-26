@@ -1,4 +1,4 @@
-import { ContextDefinition } from "jsonld";
+import {ContextDefinition} from 'jsonld';
 
 /**
  * =============================================================================
@@ -7,34 +7,34 @@ import { ContextDefinition } from "jsonld";
  */
 export const eventContext: ContextDefinition = {
   type: {
-    "@id": "@type",
+    '@id': '@type',
   },
-  Event: "http://schema.org/Event",
-  Thing: "http://schema.org/Thing",
+  Event: 'http://schema.org/Event',
+  Thing: 'http://schema.org/Thing',
   organizer: {
-    "@id": "http://schema.org/organizer",
+    '@id': 'http://schema.org/organizer',
   },
-  Person: "http://schema.org/Person",
+  Person: 'http://schema.org/Person',
   description: {
-    "@id": "http://schema.org/description",
-    "@type": "http://www.w3.org/2001/XMLSchema#string",
+    '@id': 'http://schema.org/description',
+    '@type': 'http://www.w3.org/2001/XMLSchema#string',
   },
   startDate: {
-    "@id": "http://schema.org/startDate",
-    "@type": "http://www.w3.org/2001/XMLSchema#datetime",
+    '@id': 'http://schema.org/startDate',
+    '@type': 'http://www.w3.org/2001/XMLSchema#datetime',
   },
   endDate: {
-    "@id": "http://schema.org/endDate",
-    "@type": "http://www.w3.org/2001/XMLSchema#datetime",
+    '@id': 'http://schema.org/endDate',
+    '@type': 'http://www.w3.org/2001/XMLSchema#datetime',
   },
   attendees: {
-    "@id": "http://schema.org/attendees",
+    '@id': 'http://schema.org/attendees',
   },
   location: {
-    "@id": "http://schema.org/location",
+    '@id': 'http://schema.org/location',
   },
-  Place: "http://schema.org/Place",
+  Place: 'http://schema.org/Place',
   about: {
-    "@id": "http://schema.org/about",
+    '@id': 'http://schema.org/about',
   },
 };

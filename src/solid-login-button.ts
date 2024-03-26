@@ -1,6 +1,6 @@
 import {LitElement, html} from 'lit';
 import {customElement} from 'lit/decorators.js';
-import { EVENTS } from './constants/EVENTS';
+import {EVENTS} from './constants/EVENTS';
 
 /**
  * An example element.
@@ -11,7 +11,6 @@ import { EVENTS } from './constants/EVENTS';
  */
 @customElement('solid-login-button')
 export class SolidLoginButton extends LitElement {
-
   private _handleLogin() {
     this.dispatchEvent(new CustomEvent(EVENTS.LOGIN, {bubbles: true}));
   }

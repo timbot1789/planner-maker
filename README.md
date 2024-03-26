@@ -1,7 +1,6 @@
-# A Simple Solid Calendar/Planner 
+# A Simple Solid Calendar/Planner
 
-This project was created for the [March 2024 Solid Hackathon](https://solidhack.org/). The goal is to produce an easy-to-use calendar application that integrates with a solid pod and can be easily embedded in other solid apps. 
-
+This project was created for the [March 2024 Solid Hackathon](https://solidhack.org/). The goal is to produce an easy-to-use calendar application that integrates with a solid pod and can be easily embedded in other solid apps.
 
 ## Setup
 
@@ -40,19 +39,23 @@ We have a few dev tools:
 We recommend developing like this:
 
 In one terminal, run tsc under watch mode:
+
 ```bash
 npm run build:watch
 ```
 
 In a second terminal run the dev server under watch mode:
+
 ```bash
 npm run serve
 ```
 
 In a third run the solid server
+
 ```bash
 npm run pod
 ```
+
 This will get you set up with everything you need to test the app, and will automatically refresh after any changes.
 
 ## Testing
