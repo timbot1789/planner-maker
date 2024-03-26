@@ -6,13 +6,13 @@ import { LitElement } from 'lit';
  * @slot - This element has a slot
  * @csspart button - The button
  */
-export declare class SolidLogin extends LitElement {
+export declare class SolidOidcSelector extends LitElement {
     oidcOptions: URL[];
     render(): import("lit-html").TemplateResult<1>;
 }
 declare global {
     interface HTMLElementTagNameMap {
-        'solid-login': SolidLogin;
+        'solid-oidc-selector': SolidOidcSelector;
     }
 }
-//# sourceMappingURL=solid-login.d.ts.map
+//# sourceMappingURL=solid-oidc-selector.d.ts.map

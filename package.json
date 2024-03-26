@@ -37,9 +37,10 @@
   "license": "BSD-3-Clause",
   "dependencies": {
     "@inrupt/solid-client-authn-browser": "^2.1.0",
-    "@solid/community-server": "^7.0.4",
     "@ldo/ldo": "^0.0.1-alpha.24",
     "@ldo/solid-react": "^0.0.1-alpha.24",
+    "@lit/context": "^1.1.0",
+    "@solid/community-server": "^7.0.4",
     "lit": "^3.0.0"
   },
   "devDependencies": {

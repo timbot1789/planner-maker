@@ -7,7 +7,10 @@
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../node_modules/lit/polyfill-support.js"></script>
     <script type="module" src="../solid-calendar.js"></script>
-    <script type="module" src="../solid-login.js"></script>
+    <script type="module" src="../solid-auth-context-provider.js"></script>
+    <script type="module" src="../solid-login-button.js"></script>
+    <script type="module" src="../solid-oidc-selector.js"></script>
+    <script type="module" src="../test-context-consumer.js"></script>
     <style>
       p {
         border: solid 1px blue;
@@ -16,10 +19,16 @@
     </style>
   </head>
   <body>
-    <solid-login />
-    <solid-calendar>
-      <p>This is child content</p>
-    </solid-calendar>
-    <p>This is added content</p>
+      <div>
+        <solid-oidc-selector></solid-oidc-selector>
+        <solid-login-button></solid-login-button>
+      </div>
+      <solid-calendar>
+        <p>This is child content</p>
+      </solid-calendar>
+      <p>This is added content</p>
+    <solid-auth-context-provider>
+      <test-context-consumer></test-context-consumer>
+    </solid-auth-context-provider>
   </body>
 </html>
