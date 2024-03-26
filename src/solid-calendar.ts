@@ -20,9 +20,7 @@ export class SolidCalendar extends LitElement {
   `;
 
   override render() {
-    return html`
-     Updated New Text 
-    `;
+    return html` Updated New Text `;
   }
 }
 

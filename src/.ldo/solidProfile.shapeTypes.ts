@@ -8,7 +8,7 @@ import {
   PhoneNumberShape,
   TrustedAppShape,
   RSAPublicKeyShape,
-} from "./solidProfile.typings";
+} from './solidProfile.typings';
 
 /**
  * =============================================================================
@@ -21,7 +21,7 @@ import {
  */
 export const SolidProfileShapeShapeType: ShapeType<SolidProfileShape> = {
   schema: solidProfileSchema,
-  shape: "https://shaperepo.com/schemas/solidProfile#SolidProfileShape",
+  shape: 'https://shaperepo.com/schemas/solidProfile#SolidProfileShape',
   context: solidProfileContext,
 };
 
@@ -30,7 +30,7 @@ export const SolidProfileShapeShapeType: ShapeType<SolidProfileShape> = {
  */
 export const AddressShapeShapeType: ShapeType<AddressShape> = {
   schema: solidProfileSchema,
-  shape: "https://shaperepo.com/schemas/solidProfile#AddressShape",
+  shape: 'https://shaperepo.com/schemas/solidProfile#AddressShape',
   context: solidProfileContext,
 };
 
@@ -39,7 +39,7 @@ export const AddressShapeShapeType: ShapeType<AddressShape> = {
  */
 export const EmailShapeShapeType: ShapeType<EmailShape> = {
   schema: solidProfileSchema,
-  shape: "https://shaperepo.com/schemas/solidProfile#EmailShape",
+  shape: 'https://shaperepo.com/schemas/solidProfile#EmailShape',
   context: solidProfileContext,
 };
 
@@ -48,7 +48,7 @@ export const EmailShapeShapeType: ShapeType<EmailShape> = {
  */
 export const PhoneNumberShapeShapeType: ShapeType<PhoneNumberShape> = {
   schema: solidProfileSchema,
-  shape: "https://shaperepo.com/schemas/solidProfile#PhoneNumberShape",
+  shape: 'https://shaperepo.com/schemas/solidProfile#PhoneNumberShape',
   context: solidProfileContext,
 };
 
@@ -57,7 +57,7 @@ export const PhoneNumberShapeShapeType: ShapeType<PhoneNumberShape> = {
  */
 export const TrustedAppShapeShapeType: ShapeType<TrustedAppShape> = {
   schema: solidProfileSchema,
-  shape: "https://shaperepo.com/schemas/solidProfile#TrustedAppShape",
+  shape: 'https://shaperepo.com/schemas/solidProfile#TrustedAppShape',
   context: solidProfileContext,
 };
 
@@ -66,6 +66,6 @@ export const TrustedAppShapeShapeType: ShapeType<TrustedAppShape> = {
  */
 export const RSAPublicKeyShapeShapeType: ShapeType<RSAPublicKeyShape> = {
   schema: solidProfileSchema,
-  shape: "https://shaperepo.com/schemas/solidProfile#RSAPublicKeyShape",
+  shape: 'https://shaperepo.com/schemas/solidProfile#RSAPublicKeyShape',
   context: solidProfileContext,
 };

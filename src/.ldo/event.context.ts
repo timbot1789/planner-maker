@@ -1,4 +1,4 @@
-import { ContextDefinition } from "jsonld";
+import {ContextDefinition} from 'jsonld';
 
 /**
  * =============================================================================
@@ -7,10 +7,10 @@ import { ContextDefinition } from "jsonld";
  */
 export const eventContext: ContextDefinition = {
   type: {
-    "@id": "@type",
+    '@id': '@type',
   },
-  Event: "http://schema.org/Event",
-  Thing: "http://schema.org/Thing",
+  Event: 'http://schema.org/Event',
+  Thing: 'http://schema.org/Thing',
   organizer: {
     "@id": "http://schema.org/organizer",
     "@type": "http://schema.org/Person",

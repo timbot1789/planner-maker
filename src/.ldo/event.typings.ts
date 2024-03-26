@@ -1,4 +1,4 @@
-import { ContextDefinition } from "jsonld";
+import {ContextDefinition} from 'jsonld';
 
 /**
  * =============================================================================
@@ -10,14 +10,14 @@ import { ContextDefinition } from "jsonld";
  * EventSh Type
  */
 export interface EventSh {
-  "@id"?: string;
-  "@context"?: ContextDefinition;
+  '@id'?: string;
+  '@context'?: ContextDefinition;
   type:
     | {
-        "@id": "Event";
+        '@id': 'Event';
       }
     | {
-        "@id": "Thing";
+        '@id': 'Thing';
       };
   /**
    * The organizer of the calander event.

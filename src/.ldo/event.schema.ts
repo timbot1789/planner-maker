@@ -1,4 +1,4 @@
-import { Schema } from "shexj";
+import {Schema} from 'shexj';
 
 /**
  * =============================================================================
@@ -6,44 +6,44 @@ import { Schema } from "shexj";
  * =============================================================================
  */
 export const eventSchema: Schema = {
-  type: "Schema",
+  type: 'Schema',
   shapes: [
     {
-      id: "https://example.com/EventSh",
-      type: "ShapeDecl",
+      id: 'https://example.com/EventSh',
+      type: 'ShapeDecl',
       shapeExpr: {
-        type: "Shape",
+        type: 'Shape',
         expression: {
-          type: "EachOf",
+          type: 'EachOf',
           expressions: [
             {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+              type: 'TripleConstraint',
+              predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
               valueExpr: {
-                type: "NodeConstraint",
-                values: ["http://schema.org/Event", "http://schema.org/Thing"],
+                type: 'NodeConstraint',
+                values: ['http://schema.org/Event', 'http://schema.org/Thing'],
               },
             },
             {
-              type: "TripleConstraint",
-              predicate: "http://schema.org/organizer",
+              type: 'TripleConstraint',
+              predicate: 'http://schema.org/organizer',
               valueExpr: {
                 type: "NodeConstraint",
                 datatype: "http://schema.org/Person",
               },
               annotations: [
                 {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#label",
+                  type: 'Annotation',
+                  predicate: 'http://www.w3.org/2000/01/rdf-schema#label',
                   object: {
-                    value: "organizer",
+                    value: 'organizer',
                   },
                 },
                 {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
+                  type: 'Annotation',
+                  predicate: 'http://www.w3.org/2000/01/rdf-schema#comment',
                   object: {
-                    value: "The organizer of the calander event. ",
+                    value: 'The organizer of the calander event. ',
                   },
                 },
               ],
@@ -52,20 +52,20 @@ export const eventSchema: Schema = {
               type: "TripleConstraint",
               predicate: "http://schema.org/name",
               valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string",
+                type: 'NodeConstraint',
+                datatype: 'http://www.w3.org/2001/XMLSchema#string',
               },
               annotations: [
                 {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#label",
+                  type: 'Annotation',
+                  predicate: 'http://www.w3.org/2000/01/rdf-schema#label',
                   object: {
                     value: "name",
                   },
                 },
                 {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
+                  type: 'Annotation',
+                  predicate: 'http://www.w3.org/2000/01/rdf-schema#comment',
                   object: {
                     value: "The name of the calander event ",
                   },
@@ -73,122 +73,122 @@ export const eventSchema: Schema = {
               ],
             },
             {
-              type: "TripleConstraint",
-              predicate: "http://schema.org/startDate",
+              type: 'TripleConstraint',
+              predicate: 'http://schema.org/startDate',
               valueExpr: {
                 type: "NodeConstraint",
                 datatype: "http://www.w3.org/2001/XMLSchema#dateTime",
               },
               annotations: [
                 {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#label",
+                  type: 'Annotation',
+                  predicate: 'http://www.w3.org/2000/01/rdf-schema#label',
                   object: {
-                    value: "startDate",
+                    value: 'startDate',
                   },
                 },
                 {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
+                  type: 'Annotation',
+                  predicate: 'http://www.w3.org/2000/01/rdf-schema#comment',
                   object: {
-                    value: "The time and date at which the event starts. ",
+                    value: 'The time and date at which the event starts. ',
                   },
                 },
               ],
             },
             {
-              type: "TripleConstraint",
-              predicate: "http://schema.org/endDate",
+              type: 'TripleConstraint',
+              predicate: 'http://schema.org/endDate',
               valueExpr: {
                 type: "NodeConstraint",
                 datatype: "http://www.w3.org/2001/XMLSchema#dateTime",
               },
               annotations: [
                 {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#label",
+                  type: 'Annotation',
+                  predicate: 'http://www.w3.org/2000/01/rdf-schema#label',
                   object: {
-                    value: "endDate",
+                    value: 'endDate',
                   },
                 },
                 {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
+                  type: 'Annotation',
+                  predicate: 'http://www.w3.org/2000/01/rdf-schema#comment',
                   object: {
-                    value: "The time and date at which the event ends. ",
+                    value: 'The time and date at which the event ends. ',
                   },
                 },
               ],
             },
             {
-              type: "TripleConstraint",
-              predicate: "http://schema.org/attendees",
+              type: 'TripleConstraint',
+              predicate: 'http://schema.org/attendees',
               valueExpr: {
                 type: "NodeConstraint",
                 datatype: "http://schema.org/Person",
               },
               annotations: [
                 {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#label",
+                  type: 'Annotation',
+                  predicate: 'http://www.w3.org/2000/01/rdf-schema#label',
                   object: {
-                    value: "attendees",
+                    value: 'attendees',
                   },
                 },
                 {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
+                  type: 'Annotation',
+                  predicate: 'http://www.w3.org/2000/01/rdf-schema#comment',
                   object: {
-                    value: "The attendees of the calander event. ",
+                    value: 'The attendees of the calander event. ',
                   },
                 },
               ],
             },
             {
-              type: "TripleConstraint",
-              predicate: "http://schema.org/location",
+              type: 'TripleConstraint',
+              predicate: 'http://schema.org/location',
               valueExpr: {
                 type: "NodeConstraint",
                 datatype: "http://schema.org/Place",
               },
               annotations: [
                 {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#label",
+                  type: 'Annotation',
+                  predicate: 'http://www.w3.org/2000/01/rdf-schema#label',
                   object: {
-                    value: "location",
+                    value: 'location',
                   },
                 },
                 {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
+                  type: 'Annotation',
+                  predicate: 'http://www.w3.org/2000/01/rdf-schema#comment',
                   object: {
                     value:
-                      "The location at which the calander event will occur. ",
+                      'The location at which the calander event will occur. ',
                   },
                 },
               ],
             },
             {
-              type: "TripleConstraint",
-              predicate: "http://schema.org/about",
+              type: 'TripleConstraint',
+              predicate: 'http://schema.org/about',
               valueExpr: {
                 type: "NodeConstraint",
                 datatype: "http://schema.org/Thing",
               },
               annotations: [
                 {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#label",
+                  type: 'Annotation',
+                  predicate: 'http://www.w3.org/2000/01/rdf-schema#label',
                   object: {
-                    value: "about",
+                    value: 'about',
                   },
                 },
                 {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
+                  type: 'Annotation',
+                  predicate: 'http://www.w3.org/2000/01/rdf-schema#comment',
                   object: {
-                    value: "Additional information about the calander event",
+                    value: 'Additional information about the calander event',
                   },
                 },
               ],
@@ -197,18 +197,18 @@ export const eventSchema: Schema = {
         },
         annotations: [
           {
-            type: "Annotation",
-            predicate: "http://www.w3.org/2000/01/rdf-schema#label",
+            type: 'Annotation',
+            predicate: 'http://www.w3.org/2000/01/rdf-schema#label',
             object: {
-              value: "Event",
+              value: 'Event',
             },
           },
           {
-            type: "Annotation",
-            predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
+            type: 'Annotation',
+            predicate: 'http://www.w3.org/2000/01/rdf-schema#comment',
             object: {
               value:
-                "A calander event, this could be an online meeting or in-person event",
+                'A calander event, this could be an online meeting or in-person event',
             },
           },
         ],
