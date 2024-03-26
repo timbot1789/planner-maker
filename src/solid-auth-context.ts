@@ -7,6 +7,7 @@ export interface ISolidAuthContext {
     options?: object
   ) => Promise<Response>;
   isLoggedIn: boolean;
+  webId?: string | URL;
 }
 
 export const solidAuthContext = createContext<ISolidAuthContext>(

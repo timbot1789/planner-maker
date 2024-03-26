@@ -11,7 +11,7 @@ import {EVENTS} from './constants/EVENTS';
 @customElement('solid-oidc-selector')
 export class SolidOidcSelector extends LitElement {
   @property() oidcOptions = [
-    new URL('http://localhost:3000'),
+    new URL('http://localhost:3001'),
     new URL('https://login.inrupt.com'),
     new URL('https://solidcommunity.net'),
   ];
@@ -22,7 +22,6 @@ export class SolidOidcSelector extends LitElement {
       bubbles: true,
       detail: target.value,
     });
-    console.log('evt', evt);
     this.dispatchEvent(evt);
   }
 
