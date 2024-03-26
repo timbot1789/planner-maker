@@ -32,7 +32,6 @@ export const MakeEvent: FunctionComponent<{ mainContainer?: Container }> = ({
         return;
       }
       const eventContainer = eventContainerResult.resource;
-      console.log('here')
 
       // Upload Image
       let uploadedImage: Leaf | undefined;
@@ -61,17 +60,24 @@ export const MakeEvent: FunctionComponent<{ mainContainer?: Container }> = ({
       );
       console.log(event)
       // Set the article body
-      event.description = message;
+      //event.description.@value = message;
+      event.name = message
       if (uploadedImage) {
         // Link the URI to the 
         //event.image = { "@id": uploadedImage.uri };
       }
       // Say that the type is a "SocialMediaeventing"
       event.type = { "@id": "Event" };
-      // Add an upload date
+      // Add an start date
       event.startDate = startDate
-      // Add an upload date
-      event.endDate = endDate;
+      //event.startDate = {"@id": "DateTime", "@value": "this is an event description"}
+      // Add an end date
+      event.endDate = endDate
+      //add an organizer
+      event.organizer = "http://localhost:3001/tester2/"
+      event.attendees = "http://localhost:3001/tester2/"
+      event.location = "Boston, MA"
+      event.about = "Thing"
       // The commitData function handles sending the data to the Pod.
       const result = await commitData(event);
       if (result.isError) {
@@ -101,6 +107,7 @@ export const MakeEvent: FunctionComponent<{ mainContainer?: Container }> = ({
         value={endDate}
         onChange={(e) => setEndDate(e.target.value)}
       />
+      <input type="submit" value="Post" />
     </form>
   );
 };

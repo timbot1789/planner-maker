@@ -22,13 +22,11 @@ export interface EventSh {
   /**
    * The organizer of the calander event.
    */
-  organizer: {
-    "@id": "Person";
-  };
+  organizer: string;
   /**
-   * The description of the calander event
+   * The name of the calander event
    */
-  description?: string;
+  name: string;
   /**
    * The time and date at which the event starts.
    */
@@ -40,19 +38,13 @@ export interface EventSh {
   /**
    * The attendees of the calander event.
    */
-  attendees?: {
-    "@id": "Person";
-  };
+  attendees: string;
   /**
    * The location at which the calander event will occur.
    */
-  location?: {
-    "@id": "Place";
-  };
+  location: string;
   /**
    * Additional information about the calander event
    */
-  about?: {
-    "@id": "Thing";
-  };
+  about: string;
 }

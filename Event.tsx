@@ -9,8 +9,8 @@ export const Event: FunctionComponent<{ eventUri: ContainerUri }> = ({
   const eventIndexUri = `${eventUri}index.ttl`;
   const eventResource = useResource(eventIndexUri);
   const event = useSubject(EventShShapeType, eventIndexUri);
+  console.log(event)
   const { getResource } = useLdo();
-
 
   //Delete Event
   const deleteEvent = useCallback(async () => {
@@ -24,9 +24,12 @@ export const Event: FunctionComponent<{ eventUri: ContainerUri }> = ({
 
   return (
     <div>
-      <p>{event.description}</p>
+      <p>{event.name}</p>
       <p>Start Date:{event.startDate}</p>
       <p>End Date:{event.endDate}</p>
+      <p>Organizer:{event.organizer}</p>
+      <p>Attendees:{event.attendees}</p>
+      <p>About:{event.about}</p>
       <button onClick={deleteEvent}>Delete Event</button>
     </div>
   );

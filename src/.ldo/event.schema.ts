@@ -29,7 +29,7 @@ export const eventSchema: Schema = {
               predicate: "http://schema.org/organizer",
               valueExpr: {
                 type: "NodeConstraint",
-                values: ["http://schema.org/Person"],
+                datatype: "http://schema.org/Person",
               },
               annotations: [
                 {
@@ -50,26 +50,24 @@ export const eventSchema: Schema = {
             },
             {
               type: "TripleConstraint",
-              predicate: "http://schema.org/description",
+              predicate: "http://schema.org/name",
               valueExpr: {
                 type: "NodeConstraint",
                 datatype: "http://www.w3.org/2001/XMLSchema#string",
               },
-              min: 0,
-              max: 1,
               annotations: [
                 {
                   type: "Annotation",
                   predicate: "http://www.w3.org/2000/01/rdf-schema#label",
                   object: {
-                    value: "description",
+                    value: "name",
                   },
                 },
                 {
                   type: "Annotation",
                   predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
                   object: {
-                    value: "The description of the calander event ",
+                    value: "The name of the calander event ",
                   },
                 },
               ],
@@ -79,7 +77,7 @@ export const eventSchema: Schema = {
               predicate: "http://schema.org/startDate",
               valueExpr: {
                 type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#datetime",
+                datatype: "http://www.w3.org/2001/XMLSchema#dateTime",
               },
               annotations: [
                 {
@@ -103,7 +101,7 @@ export const eventSchema: Schema = {
               predicate: "http://schema.org/endDate",
               valueExpr: {
                 type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#datetime",
+                datatype: "http://www.w3.org/2001/XMLSchema#dateTime",
               },
               annotations: [
                 {
@@ -127,10 +125,8 @@ export const eventSchema: Schema = {
               predicate: "http://schema.org/attendees",
               valueExpr: {
                 type: "NodeConstraint",
-                values: ["http://schema.org/Person"],
+                datatype: "http://schema.org/Person",
               },
-              min: 0,
-              max: 1,
               annotations: [
                 {
                   type: "Annotation",
@@ -153,10 +149,8 @@ export const eventSchema: Schema = {
               predicate: "http://schema.org/location",
               valueExpr: {
                 type: "NodeConstraint",
-                values: ["http://schema.org/Place"],
+                datatype: "http://schema.org/Place",
               },
-              min: 0,
-              max: 1,
               annotations: [
                 {
                   type: "Annotation",
@@ -180,10 +174,8 @@ export const eventSchema: Schema = {
               predicate: "http://schema.org/about",
               valueExpr: {
                 type: "NodeConstraint",
-                values: ["http://schema.org/Thing"],
+                datatype: "http://schema.org/Thing",
               },
-              min: 0,
-              max: 1,
               annotations: [
                 {
                   type: "Annotation",
