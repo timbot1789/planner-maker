@@ -1,4 +1,4 @@
-import { FunctionComponent, useCallback, useMemo } from "react";
+import React, { FunctionComponent, useCallback, useMemo } from "react";
 import { ContainerUri, LeafUri } from "@ldo/solid";
 import { useLdo, useResource, useSubject } from "@ldo/solid-react";
 import { EventShShapeType } from "./src/.ldo/event.shapeTypes";
@@ -9,7 +9,6 @@ export const Event: FunctionComponent<{ eventUri: ContainerUri }> = ({
   const eventIndexUri = `${eventUri}index.ttl`;
   const eventResource = useResource(eventIndexUri);
   const event = useSubject(EventShShapeType, eventIndexUri);
-  console.log(event)
   const { getResource } = useLdo();
 
   //Delete Event

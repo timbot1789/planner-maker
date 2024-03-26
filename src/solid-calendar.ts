@@ -1,6 +1,7 @@
 import {LitElement, html, css} from 'lit';
-import {customElement} from 'lit/decorators.js';
-
+import {customElement, state} from 'lit/decorators.js';
+import {consume} from '@lit/context';
+import {ISolidAuthContext, solidAuthContext} from './solid-auth-context';
 /**
  * An example element.
  *
@@ -10,17 +11,24 @@ import {customElement} from 'lit/decorators.js';
  */
 @customElement('solid-calendar')
 export class SolidCalendar extends LitElement {
+  /* Note: this script needs to be loaded AFTER the context
+   * See: https://github.com/lit/lit/discussions/3302#discussioncomment-6319569
+   */
+  @consume({context: solidAuthContext, subscribe: true})
+  @state()
+  solidAuthData?: ISolidAuthContext;
+
   static override styles = css`
     :host {
       display: block;
       border: solid 1px gray;
-      padding: 16px;
+    H  padding: 16px;
       max-width: 800px;
     }
   `;
 
   override render() {
-    return html` Updated New Text `;
+    return html`<p>Updated New Text $</p>`;
   }
 }
 

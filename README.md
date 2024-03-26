@@ -47,6 +47,7 @@ npm run lint
 [Prettier](https://prettier.io/) is used for code formatting. It has been pre-configured according to the Lit's style. You can change this in `.prettierrc.json`.
 
 You can run prettier with
+
 ```bash
 npm run format
 ```
