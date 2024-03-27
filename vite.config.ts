@@ -15,7 +15,6 @@ export default () => {
         },
       },
     },
-
     build: {
       target: ['esnext'], // 👈 build.target
     },
