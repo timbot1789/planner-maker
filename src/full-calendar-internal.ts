@@ -5,7 +5,6 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import {LitElement} from 'lit';
 
-
 @customElement('full-calendar-internal')
 export class FullCalendarInternal extends LitElement {
   @property()
@@ -13,7 +12,6 @@ export class FullCalendarInternal extends LitElement {
 
   override connectedCallback() {
     const shadowRoot = this.attachShadow({mode: 'open'});
-    console.log('calendar events', this.events);
 
     const template = html` <div id="calendar"></div> `;
 
@@ -33,4 +31,3 @@ export class FullCalendarInternal extends LitElement {
     calendar.render();
   }
 }
-
