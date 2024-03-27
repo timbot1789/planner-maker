@@ -139,16 +139,6 @@ export class SolidCalendar extends LitElement {
   }
 
   override render() {
-    console.log("children passed in", this.calendarContainer?.children().map((child) => {
-                const event = this.solidLdo
-                  ?.usingType(EventShShapeType)
-                  .fromSubject(child.uri);
-                return {
-                  title: event?.name,
-                  start: event?.startDate,
-                  end: event?.endDate,
-                };
-              }))
     return html`
       <div>
         ${this.loading
