@@ -125,14 +125,15 @@ export class SolidCalendar extends LitElement {
       throw createCalendarContainerResult;
     this.calendarContainer = createCalendarContainerResult.resource;
     await this.calendarContainer.read();
-    this.calendarContainer.children().forEach((child) => child.read().then(() => this.requestUpdate()));
+    this.calendarContainer
+      .children()
+      .forEach((child) => child.read().then(() => this.requestUpdate()));
   }
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   protected override updated(
     _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
   ): void {
-    console.log(this.calendarContainer?.children());
     if (_changedProperties.get('solidAuthData') && this.solidAuthData?.webId) {
       this._initializeCalendarLdo(this.solidAuthData);
     }
@@ -145,11 +146,12 @@ export class SolidCalendar extends LitElement {
         type="text/css"
       />
       <div>
-        ${this.calendarContainer?.children().map(
-          (child) => {
-            const event = this.solidLdo?.usingType(EventShShapeType).fromSubject(child.uri)
-            console.log(JSON.stringify(event)); 
-            return html`
+        ${this.calendarContainer?.children().map((child) => {
+          const event = this.solidLdo
+            ?.usingType(EventShShapeType)
+            .fromSubject(child.uri);
+          console.log(JSON.stringify(event));
+          return html`
             <div>
               <dl>
                 <dt>Description:</dt>
@@ -161,8 +163,8 @@ export class SolidCalendar extends LitElement {
               </dl>
               <hr />
             </div>
-          `}
-        )}
+          `;
+        })}
         <form @submit=${this.onSubmit}>
           <input
             type="description"
