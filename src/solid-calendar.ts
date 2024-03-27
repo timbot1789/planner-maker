@@ -8,6 +8,7 @@ import {
   commitData,
 } from '@ldo/solid';
 import {v4} from 'uuid';
+import './full-calendar-internal.ts';
 import {ISolidAuthContext, solidAuthContext} from './solid-auth-context';
 import {EventShShapeType} from './.ldo/event.shapeTypes';
 
@@ -34,12 +35,6 @@ export class SolidCalendar extends LitElement {
   calendarContainer?: Container;
 
   static override styles = css`
-    :host {
-      display: block;
-      border: solid 1px gray;
-      padding: 8px;
-      max-width: 800px;
-    }
     dl {
       display: grid;
       grid-gap: 4px 16px;
@@ -140,31 +135,9 @@ export class SolidCalendar extends LitElement {
   }
 
   override render() {
-    return html`<link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css"
-        type="text/css"
-      />
+    return html`
       <div>
-        ${this.calendarContainer?.children().map((child) => {
-          const event = this.solidLdo
-            ?.usingType(EventShShapeType)
-            .fromSubject(child.uri);
-          console.log(JSON.stringify(event));
-          return html`
-            <div>
-              <dl>
-                <dt>Description:</dt>
-                <dd>${event?.name}</dd>
-                <dt>Start Date:</dt>
-                <dd>${event?.startDate}</dd>
-                <dt>End Date:</dt>
-                <dd>${event?.endDate}</dd>
-              </dl>
-              <hr />
-            </div>
-          `;
-        })}
+        <full-calendar-internal></full-calendar-internal>
         <form @submit=${this.onSubmit}>
           <input
             type="description"
@@ -175,7 +148,8 @@ export class SolidCalendar extends LitElement {
           <input type="date" name="endDate" placeholder="End Date" />
           <input type="submit" value="Post" />
         </form>
-      </div>`;
+      </div>
+    `;
   }
 }
 
