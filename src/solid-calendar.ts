@@ -139,7 +139,11 @@ export class SolidCalendar extends LitElement {
   }
 
   override render() {
-    return html`
+    return html`<link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css"
+        type="text/css"
+      ></link>
       <div>
         ${this.loading
           ? ''

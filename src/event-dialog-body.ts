@@ -1,6 +1,6 @@
+
 import {LitElement, html} from 'lit';
-import {customElement} from 'lit/decorators.js';
-import {EVENTS} from './constants/EVENTS';
+import {customElement, property} from 'lit/decorators.js';
 
 /**
  * An example element.
@@ -9,24 +9,23 @@ import {EVENTS} from './constants/EVENTS';
  * @slot - This element has a slot
  * @csspart button - The button
  */
-@customElement('solid-logout-button')
-export class SolidLogoutButton extends LitElement {
-  private _handleLogin() {
-    this.dispatchEvent(new CustomEvent(EVENTS.LOGOUT, {bubbles: true}));
-  }
+@customElement('event-dialog-body')
+export class EventDialogBody extends LitElement {
+  @property()
+  close?: () => void;
 
   override render() {
     return html` <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css"
         type="text/css"
-      ></link>
-      <button @click=${this._handleLogin}>Logout</button>`;
+      />
+      <button autofocus @click=${this?.close}>Close</button>`;
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'solid-logout-button': SolidLogoutButton;
+    'event-dialog-body': EventDialogBody;
   }
 }
