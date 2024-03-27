@@ -69,12 +69,9 @@ export class SolidAuthContextProvider extends LitElement {
   }
 
   override render() {
-    return html`<div>
-      ${this.solidAuthData.isLoggedIn
-        ? html`<slot name="isLoggedIn"></slot>`
-        : html`<slot name="isLoggedOut"></slot>`}
-      <slot></slot>
-    </div>`;
+    return this.solidAuthData.isLoggedIn
+      ? html`<slot name="isLoggedIn"></slot>`
+      : html`<slot name="isLoggedOut"></slot>`;
   }
 }
 
