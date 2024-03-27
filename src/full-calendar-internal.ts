@@ -2,6 +2,7 @@ import {render, html} from 'lit-html';
 
 import {Calendar} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid'
 
 export class FullCalendarInternal extends HTMLElement {
   connectedCallback() {
@@ -26,7 +27,12 @@ export class FullCalendarInternal extends HTMLElement {
 
     const calendarEl = shadowRoot.getElementById('calendar') as HTMLElement;
     const calendar = new Calendar(calendarEl, {
-      plugins: [dayGridPlugin],
+      plugins: [dayGridPlugin, timeGridPlugin],
+      headerToolbar: {
+        left: 'prev,next',
+        center: 'title',
+        right: 'timeGridDay,timeGridWeek,dayGridMonth'
+      }
     });
 
     calendar.render();
