@@ -4,7 +4,7 @@ export interface ISolidAuthContext {
   oidcProvider: URL;
   fetch: typeof globalThis.fetch;
   isLoggedIn: boolean;
-  webId?: string | URL;
+  webId?: string;
 }
 
 /* ContextRoot helps avoid race conditions in script loading
