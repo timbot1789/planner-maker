@@ -40,6 +40,18 @@ export class SolidCalendar extends LitElement {
       padding: 8px;
       max-width: 800px;
     }
+    dl {
+      display: grid;
+      grid-gap: 4px 16px;
+      grid-template-columns: max-content;
+    }
+    dt {
+      font-weight: bold;
+    }
+    dd {
+      margin: 0;
+      grid-column-start: 2;
+    }
   `;
 
   private async onSubmit(e: SubmitEvent) {
@@ -54,18 +66,8 @@ export class SolidCalendar extends LitElement {
     // Don't create a event is main container isn't present
     if (!this.calendarContainer || !this.solidLdo) return;
 
-    // Create the container for the event
-    const eventContainerResult =
-      await this.calendarContainer.createChildAndOverwrite(`${v4()}/`);
-    // Check if there was an error
-    if (eventContainerResult.isError) {
-      alert(eventContainerResult.message);
-      return;
-    }
-    const eventContainer = eventContainerResult.resource;
-
     // Create event
-    const indexResource = eventContainer.child('event.ttl');
+    const indexResource = this.calendarContainer.child(`event-${v4()}.ttl`);
     // Create new data of type "event" where the subject is the index
     // resource's uri, and write any changes to the indexResource.
     const event = this.solidLdo.createData(
@@ -73,27 +75,21 @@ export class SolidCalendar extends LitElement {
       indexResource.uri,
       indexResource
     );
-    // Set the article body
-    //event.description.@value = message;
+
     event.name = message;
-    // Say that the type is a "SocialMediaeventing"
     event.type = {'@id': 'Event'};
-    // Add an start date
     event.startDate = startDate;
-    //event.startDate = {"@id": "DateTime", "@value": "this is an event description"}
-    // Add an end date
     event.endDate = endDate;
-    //add an organizer
     event.organizer = 'http://localhost:3001/tester2/';
     event.attendees = 'http://localhost:3001/tester2/';
     event.location = 'Boston, MA';
     event.about = 'Thing';
     // The commitData function handles sending the data to the Pod.
     const result = await commitData(event);
-    console.log(result);
     if (result.isError) {
       alert(result.message);
     }
+    await this.calendarContainer.read();
     this.requestUpdate();
   }
 
@@ -129,12 +125,14 @@ export class SolidCalendar extends LitElement {
       throw createCalendarContainerResult;
     this.calendarContainer = createCalendarContainerResult.resource;
     await this.calendarContainer.read();
+    this.calendarContainer.children().forEach((child) => child.read().then(() => this.requestUpdate()));
   }
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   protected override updated(
     _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
   ): void {
+    console.log(this.calendarContainer?.children());
     if (_changedProperties.get('solidAuthData') && this.solidAuthData?.webId) {
       this._initializeCalendarLdo(this.solidAuthData);
     }
@@ -148,12 +146,22 @@ export class SolidCalendar extends LitElement {
       />
       <div>
         ${this.calendarContainer?.children().map(
-          (child) => html`
+          (child) => {
+            const event = this.solidLdo?.usingType(EventShShapeType).fromSubject(child.uri)
+            console.log(JSON.stringify(event)); 
+            return html`
             <div>
-              ${JSON.stringify(child)}
+              <dl>
+                <dt>Description:</dt>
+                <dd>${event?.name}</dd>
+                <dt>Start Date:</dt>
+                <dd>${event?.startDate}</dd>
+                <dt>End Date:</dt>
+                <dd>${event?.endDate}</dd>
+              </dl>
               <hr />
             </div>
-          `
+          `}
         )}
         <form @submit=${this.onSubmit}>
           <input
