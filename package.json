@@ -26,6 +26,10 @@
   "author": "Google LLC",
   "license": "BSD-3-Clause",
   "dependencies": {
+    "@fullcalendar/core": "^6.1.11",
+    "@fullcalendar/daygrid": "^6.1.11",
+    "@fullcalendar/list": "^6.1.11",
+    "@fullcalendar/timegrid": "^6.1.11",
     "@inrupt/solid-client-authn-browser": "^2.1.0",
     "@ldo/ldo": "^0.0.1-alpha.24",
     "@ldo/solid": "^0.0.1-alpha.24",
