@@ -1,25 +1,19 @@
 import {render, html} from 'lit-html';
-
+import {customElement, property} from 'lit/decorators.js';
 import {Calendar} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid'
+import timeGridPlugin from '@fullcalendar/timegrid';
+import {LitElement} from 'lit';
 
-export class FullCalendarInternal extends HTMLElement {
-  connectedCallback() {
+
+@customElement('full-calendar-internal')
+export class FullCalendarInternal extends LitElement {
+  @property()
+  events = [];
+
+  override connectedCallback() {
     const shadowRoot = this.attachShadow({mode: 'open'});
-
-    const fontStyle = html`
-      <style>
-        @font-face {
-          font-family: 'fcicons';
-          src: url('data:application/x-font-ttf;charset=utf-8;base64,AAEAAAALA...AAAAAAAAA=')
-            format('truetype');
-          font-weight: normal;
-          font-style: normal;
-        }
-      </style>
-    `;
-    render(fontStyle, this);
+    console.log('calendar events', this.events);
 
     const template = html` <div id="calendar"></div> `;
 
@@ -31,12 +25,12 @@ export class FullCalendarInternal extends HTMLElement {
       headerToolbar: {
         left: 'prev,next',
         center: 'title',
-        right: 'timeGridDay,timeGridWeek,dayGridMonth'
-      }
+        right: 'timeGridDay,timeGridWeek,dayGridMonth',
+      },
+      events: this.events,
     });
 
     calendar.render();
   }
 }
 
-customElements.define('full-calendar-internal', FullCalendarInternal);

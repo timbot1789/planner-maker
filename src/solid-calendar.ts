@@ -1,5 +1,5 @@
 import {LitElement, html, css, PropertyValueMap} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
+import {customElement, property, state} from 'lit/decorators.js';
 import {consume} from '@lit/context';
 import {
   Container,
@@ -33,6 +33,9 @@ export class SolidCalendar extends LitElement {
 
   @property()
   calendarContainer?: Container;
+
+  @state()
+  loading = true;
 
   static override styles = css`
     dl {
@@ -120,9 +123,10 @@ export class SolidCalendar extends LitElement {
       throw createCalendarContainerResult;
     this.calendarContainer = createCalendarContainerResult.resource;
     await this.calendarContainer.read();
-    this.calendarContainer
-      .children()
-      .forEach((child) => child.read().then(() => this.requestUpdate()));
+    await Promise.all(
+      this.calendarContainer.children().map((child) => child.read())
+    );
+    this.loading = false;
   }
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -135,9 +139,32 @@ export class SolidCalendar extends LitElement {
   }
 
   override render() {
+    console.log("children passed in", this.calendarContainer?.children().map((child) => {
+                const event = this.solidLdo
+                  ?.usingType(EventShShapeType)
+                  .fromSubject(child.uri);
+                return {
+                  title: event?.name,
+                  start: event?.startDate,
+                  end: event?.endDate,
+                };
+              }))
     return html`
       <div>
-        <full-calendar-internal></full-calendar-internal>
+        ${this.loading
+          ? ''
+          : html`<full-calendar-internal
+              .events=${this.calendarContainer?.children().map((child) => {
+                const event = this.solidLdo
+                  ?.usingType(EventShShapeType)
+                  .fromSubject(child.uri);
+                return {
+                  title: event?.name,
+                  start: event?.startDate,
+                  end: event?.endDate,
+                };
+              })}
+            ></full-calendar-internal>`}
         <form @submit=${this.onSubmit}>
           <input
             type="description"
