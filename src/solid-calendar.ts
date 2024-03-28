@@ -1,4 +1,4 @@
-import {LitElement, html, css, PropertyValueMap} from 'lit';
+import {LitElement, html, PropertyValueMap} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {consume} from '@lit/context';
 import {
@@ -36,21 +36,6 @@ export class SolidCalendar extends LitElement {
 
   @state()
   loading = true;
-
-  static override styles = css`
-    dl {
-      display: grid;
-      grid-gap: 4px 16px;
-      grid-template-columns: max-content;
-    }
-    dt {
-      font-weight: bold;
-    }
-    dd {
-      margin: 0;
-      grid-column-start: 2;
-    }
-  `;
 
   async submitEvent(info: {title: string; start: string; end: string}) {
     if (!this.calendarContainer || !this.solidLdo) return;

@@ -1,4 +1,4 @@
-import {html, LitElement} from 'lit';
+import {html, LitElement, css} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {Calendar} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -18,6 +18,14 @@ export class FullCalendarInternal extends LitElement {
 
   @state()
   calendar?: Calendar;
+
+  static override styles = css`
+    #add-event {
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.4);
+    }
+  `;
 
   override connectedCallback() {
     super.connectedCallback();

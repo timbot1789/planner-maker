@@ -1,4 +1,4 @@
-import {LitElement, html} from 'lit';
+import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
 /**
@@ -19,6 +19,19 @@ export class EventDialogBody extends LitElement {
   @property()
   info?: {name: string; start: Date; end: Date};
 
+  static override styles = css`
+    #create-event-form {
+      display: flex;
+      flex-direction: column;
+    }
+    button {
+      float: left;
+    }
+    #submission {
+      float: right;
+    }
+  `;
+
   private _onSubmit(e: SubmitEvent) {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
@@ -38,13 +51,20 @@ export class EventDialogBody extends LitElement {
         href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css"
         type="text/css"
       />
-      <form @submit=${this._onSubmit}>
-        <input type="description" name="title" placeholder="Make a event" />
+      <form @submit=${this._onSubmit} id="create-event-form">
+        <input
+          autofocus
+          type="description"
+          name="title"
+          placeholder="Event Title"
+        />
         <input type="date" name="startDate" placeholder="Start Date" />
         <input type="date" name="endDate" placeholder="End Date" />
-        <input type="submit" value="Post" />
-      </form>
-      <button autofocus @click=${this?.close}>Close</button>`;
+        <div id="action-buttons">
+          <button @click=${this?.close}>Close</button>
+          <input type="submit" value="Add Event" id="submission" />
+        </div>
+      </form>`;
   }
 }
 
