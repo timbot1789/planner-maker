@@ -2,6 +2,7 @@ import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@polymer/iron-icons/iron-icons.js';
+import { SimpleEventObj } from './calendar-data-provider';
 
 /**
  * An example element.
@@ -16,7 +17,7 @@ export class EventDialogBody extends LitElement {
   close?: () => void;
 
   @property()
-  submit?: (val: {title: string; start: string; end: string}) => void;
+  submit?: (evt: SimpleEventObj) => void;
 
   @property()
   info?: {startStr: string; endStr: string};
