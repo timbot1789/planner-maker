@@ -20,7 +20,7 @@ export class SolidLogoutButton extends LitElement {
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css"
         type="text/css"
-      />
+      ></link>
       <button @click=${this._handleLogin}>Logout</button>`;
   }
 }

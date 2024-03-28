@@ -1,4 +1,4 @@
-import {LitElement, html, css, PropertyValueMap} from 'lit';
+import {LitElement, html, PropertyValueMap} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {consume} from '@lit/context';
 import {
@@ -37,31 +37,7 @@ export class SolidCalendar extends LitElement {
   @state()
   loading = true;
 
-  static override styles = css`
-    dl {
-      display: grid;
-      grid-gap: 4px 16px;
-      grid-template-columns: max-content;
-    }
-    dt {
-      font-weight: bold;
-    }
-    dd {
-      margin: 0;
-      grid-column-start: 2;
-    }
-  `;
-
-  private async onSubmit(e: SubmitEvent) {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const formData = new FormData(form);
-    form.reset();
-
-    const message = (formData.get('description') as string | null) || '';
-    const startDate = (formData.get('startDate') as string | null) || '';
-    const endDate = (formData.get('endDate') as string | null) || '';
-    // Don't create a event is main container isn't present
+  async submitEvent(info: {title: string; start: string; end: string}) {
     if (!this.calendarContainer || !this.solidLdo) return;
 
     // Create event
@@ -74,10 +50,10 @@ export class SolidCalendar extends LitElement {
       indexResource
     );
 
-    event.name = message;
+    event.name = info.title;
     event.type = {'@id': 'Event'};
-    event.startDate = startDate;
-    event.endDate = endDate;
+    event.startDate = info.start;
+    event.endDate = info.end;
     event.organizer = 'http://localhost:3001/tester2/';
     event.attendees = 'http://localhost:3001/tester2/';
     event.location = 'Boston, MA';
@@ -139,32 +115,30 @@ export class SolidCalendar extends LitElement {
   }
 
   override render() {
-    return html`
+    return html`<link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css"
+        type="text/css"
+      ></link>
       <div>
-        ${this.loading
-          ? ''
-          : html`<full-calendar-internal
-              .events=${this.calendarContainer?.children().map((child) => {
-                const event = this.solidLdo
-                  ?.usingType(EventShShapeType)
-                  .fromSubject(child.uri);
-                return {
-                  title: event?.name,
-                  start: event?.startDate,
-                  end: event?.endDate,
-                };
-              })}
-            ></full-calendar-internal>`}
-        <form @submit=${this.onSubmit}>
-          <input
-            type="description"
-            name="description"
-            placeholder="Make a event"
-          />
-          <input type="date" name="startDate" placeholder="Start Date" />
-          <input type="date" name="endDate" placeholder="End Date" />
-          <input type="submit" value="Post" />
-        </form>
+        ${
+          this.loading
+            ? ''
+            : html`<full-calendar-internal
+                .commit=${(info: {title: string; start: string; end: string}) =>
+                  this.submitEvent(info)}
+                .events=${this.calendarContainer?.children().map((child) => {
+                  const event = this.solidLdo
+                    ?.usingType(EventShShapeType)
+                    .fromSubject(child.uri);
+                  return {
+                    title: event?.name,
+                    start: event?.startDate,
+                    end: event?.endDate,
+                  };
+                })}
+              ></full-calendar-internal>`
+        }
       </div>
     `;
   }
