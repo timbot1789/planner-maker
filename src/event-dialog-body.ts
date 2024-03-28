@@ -1,5 +1,7 @@
 import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
+import '@polymer/paper-icon-button/paper-icon-button.js';
+import '@polymer/iron-icons/iron-icons.js';
 
 /**
  * An example element.
@@ -20,15 +22,21 @@ export class EventDialogBody extends LitElement {
   info?: {startStr: string; endStr: string};
 
   static override styles = css`
-    #create-event-form {
+    #modal-body {
+      display: flex;
+      flex-direction: column;
+      padding: 8px;
+    }
+    #close-button {
+      float: right;
+    }
+    #modal-container {
       display: flex;
       flex-direction: column;
     }
-    button {
-      float: left;
-    }
-    #submission {
-      float: right;
+    #modal-header {
+      width: 100%;
+      background-color: #f2f2f2;
     }
   `;
 
@@ -46,25 +54,43 @@ export class EventDialogBody extends LitElement {
   }
 
   override render() {
-    return html` <link
+    return html`
+      <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css"
         type="text/css"
       />
-      <form @submit=${this._onSubmit} id="create-event-form">
-        <input
-          autofocus
-          type="description"
-          name="title"
-          placeholder="Event Title"
-        />
-        <input type="date" name="startDate" placeholder="Start Date" value=${this.info?.startStr}/>
-        <input type="date" name="endDate" placeholder="End Date" value=${this.info?.endStr}/>
-        <div id="action-buttons">
-          <button @click=${this?.close}>Close</button>
+      <div id="modal-container">
+        <span id="modal-header">
+          <paper-icon-button
+            id="close-button"
+            icon="close"
+            @click=${this?.close}
+          ></paper-icon-button>
+        </span>
+        <form @submit=${this._onSubmit} id="modal-body">
+          <input
+            autofocus
+            type="description"
+            name="title"
+            placeholder="Event Title"
+          />
+          <input
+            type="date"
+            name="startDate"
+            placeholder="Start Date"
+            value=${this.info?.startStr}
+          />
+          <input
+            type="date"
+            name="endDate"
+            placeholder="End Date"
+            value=${this.info?.endStr}
+          />
           <input type="submit" value="Add Event" id="submission" />
-        </div>
-      </form>`;
+        </form>
+      </div>
+    `;
   }
 }
 

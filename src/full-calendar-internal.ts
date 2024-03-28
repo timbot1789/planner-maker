@@ -20,13 +20,14 @@ export class FullCalendarInternal extends LitElement {
   calendar?: Calendar;
 
   @state()
-  info?: { startStr: string; endStr: string};
+  info?: {startStr: string; endStr: string};
 
   static override styles = css`
     #add-event {
       border: none;
       border-radius: 8px;
       box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.4);
+      padding: 0px;
     }
   `;
 
