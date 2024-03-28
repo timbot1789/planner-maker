@@ -19,6 +19,9 @@ export class FullCalendarInternal extends LitElement {
   @state()
   calendar?: Calendar;
 
+  @state()
+  info?: { startStr: string; endStr: string};
+
   static override styles = css`
     #add-event {
       border: none;
@@ -41,9 +44,10 @@ export class FullCalendarInternal extends LitElement {
       },
       events: this.events,
       selectable: true,
-      select: () => {
+      select: (info) => {
         const root = this.renderRoot as ShadowRoot;
         const dialog = root.getElementById('add-event') as HTMLDialogElement;
+        this.info = info;
         dialog.showModal();
       },
     });
@@ -69,6 +73,7 @@ export class FullCalendarInternal extends LitElement {
           .close=${() => this.closeModal()}
           .submit=${(info: {title: string; start: string; end: string}) =>
             this.submitEvent(info)}
+          .info=${this.info}
         ></event-dialog-body>
       </dialog>
     `;

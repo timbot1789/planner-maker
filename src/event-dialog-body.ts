@@ -17,7 +17,7 @@ export class EventDialogBody extends LitElement {
   submit?: (val: {title: string; start: string; end: string}) => void;
 
   @property()
-  info?: {name: string; start: Date; end: Date};
+  info?: {startStr: string; endStr: string};
 
   static override styles = css`
     #create-event-form {
@@ -58,8 +58,8 @@ export class EventDialogBody extends LitElement {
           name="title"
           placeholder="Event Title"
         />
-        <input type="date" name="startDate" placeholder="Start Date" />
-        <input type="date" name="endDate" placeholder="End Date" />
+        <input type="date" name="startDate" placeholder="Start Date" value=${this.info?.startStr}/>
+        <input type="date" name="endDate" placeholder="End Date" value=${this.info?.endStr}/>
         <div id="action-buttons">
           <button @click=${this?.close}>Close</button>
           <input type="submit" value="Add Event" id="submission" />
