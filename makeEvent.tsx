@@ -74,8 +74,8 @@ export const MakeEvent: FunctionComponent<{ mainContainer?: Container }> = ({
       // Add an end date
       event.endDate = endDate
       //add an organizer
-      event.organizer = "http://localhost:3001/tester2/"
-      event.attendees = "http://localhost:3001/tester2/"
+      event.organizer = "http://localhost:3001/tester1/"
+      event.attendees = ["http://localhost:3001/tester1/","http://solidweb.me/kennethl"]
       event.location = "Boston, MA"
       event.about = "Thing"
       // The commitData function handles sending the data to the Pod.

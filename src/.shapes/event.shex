@@ -19,7 +19,7 @@ ex:EventSh {
   <endDate> xsd:dateTime
       // rdfs:label '''endDate'''
       // rdfs:comment '''The time and date at which the event ends. ''' ;
-  <attendees> schem:Person
+  <attendees> schem:Person *
       // rdfs:label '''attendees'''
       // rdfs:comment '''The attendees of the calander event. ''' ;
   <location> schem:Place
