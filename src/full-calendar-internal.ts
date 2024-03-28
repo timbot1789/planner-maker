@@ -11,6 +11,11 @@ export class FullCalendarInternal extends LitElement {
   @property()
   events = [];
 
+  @property()
+  commit: (info: {title: string; start: string; end: string}) => void = () => {
+    console.error('commit property not defined');
+  };
+
   @state()
   calendar?: Calendar;
 
@@ -38,16 +43,25 @@ export class FullCalendarInternal extends LitElement {
     this.calendar.render();
   }
 
-  private _closeModal() {
+  closeModal() {
     const root = this.renderRoot as ShadowRoot;
     const dialog = root.getElementById('add-event') as HTMLDialogElement;
     dialog.close();
   }
 
+  submitEvent(info: {title: string; start: string; end: string}) {
+    this.calendar?.addEvent(info);
+    this.commit?.(info);
+  }
+
   protected override render() {
     return html`
       <dialog id="add-event">
-        <event-dialog-body .close=${() => this._closeModal()}></event-dialog-body> 
+        <event-dialog-body
+          .close=${() => this.closeModal()}
+          .submit=${(info: {title: string; start: string; end: string}) =>
+            this.submitEvent(info)}
+        ></event-dialog-body>
       </dialog>
     `;
   }
