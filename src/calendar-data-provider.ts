@@ -13,9 +13,9 @@ import {ISolidAuthContext, solidAuthContext} from './solid-auth-context';
 import {EventShShapeType} from './.ldo/event.shapeTypes';
 
 export type SimpleEventObj = {
-  title: string;
-  start: string;
-  end: string;
+  title?: string;
+  startStr: string;
+  endStr: string;
   extendedProps?: object;
 };
 
@@ -50,10 +50,10 @@ export class CalendarDataProvider extends LitElement {
       indexResource
     );
 
-    event.name = info.title;
+    event.name = info.title || "";
     event.type = {'@id': 'Event'};
-    event.startDate = info.start;
-    event.endDate = info.end;
+    event.startDate = info.startStr;
+    event.endDate = info.endStr;
     event.organizer = 'http://localhost:3001/tester2/';
     event.attendees = 'http://localhost:3001/tester2/';
     event.location = 'Boston, MA';

@@ -6,6 +6,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import './event-dialog-body.ts';
 import {SimpleEventObj} from './calendar-data-provider.js';
+import {DIALOG_MODE} from './constants/DIALOG_MODE.js';
 
 @customElement('solid-calendar')
 export class SolidCalendar extends LitElement {
@@ -21,7 +22,10 @@ export class SolidCalendar extends LitElement {
   calendar?: Calendar;
 
   @state()
-  info?: {startStr: string; endStr: string};
+  event?: SimpleEventObj;
+
+  @state()
+  modeLaunchState: DIALOG_MODE = DIALOG_MODE.create;
 
   static override styles = css`
     #add-event {
@@ -50,11 +54,16 @@ export class SolidCalendar extends LitElement {
       select: (info) => {
         const root = this.renderRoot as ShadowRoot;
         const dialog = root.getElementById('add-event') as HTMLDialogElement;
-        this.info = info;
+        this.event = {startStr: info.startStr, endStr: info.endStr};
+        this.modeLaunchState = DIALOG_MODE.create;
         dialog.showModal();
       },
       eventClick: (info) => {
-        console.log(info.event.extendedProps);
+        const root = this.renderRoot as ShadowRoot;
+        const dialog = root.getElementById('add-event') as HTMLDialogElement;
+        this.event = {startStr: info.event.startStr, endStr: info.event.endStr, title: info.event.title, extendedProps: info.event.extendedProps};
+        this.modeLaunchState = DIALOG_MODE.view
+        dialog.showModal();
       },
     });
 
@@ -76,9 +85,10 @@ export class SolidCalendar extends LitElement {
     return html`
       <dialog id="add-event">
         <event-dialog-body
+          .mode=${this.modeLaunchState}
           .close=${() => this.closeModal()}
           .submit=${(evt: SimpleEventObj) => this.submitEvent(evt)}
-          .info=${this.info}
+          .event=${this.event}
         ></event-dialog-body>
       </dialog>
     `;
