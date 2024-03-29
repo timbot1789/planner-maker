@@ -27,16 +27,17 @@ export class EventDialogBody extends LitElement {
   @property({reflect: true})
   mode: DIALOG_MODE = DIALOG_MODE.create;
 
-  dialogButtons: { [key in DIALOG_MODE]: TemplateResult | null} =
- { [DIALOG_MODE.view]: html`<paper-icon-button
+  dialogButtons: {[key in DIALOG_MODE]: TemplateResult | null} = {
+    [DIALOG_MODE.view]: html`<paper-icon-button
       icon="create"
       @click=${() => (this.mode = DIALOG_MODE.edit)}
-    ></paper-icon-button>`
-, [DIALOG_MODE.edit]: html`<paper-icon-button
+    ></paper-icon-button>`,
+    [DIALOG_MODE.edit]: html`<paper-icon-button
       icon="visibility"
       @click=${() => (this.mode = DIALOG_MODE.view)}
     ></paper-icon-button>`,
-  [DIALOG_MODE.create]: null};
+    [DIALOG_MODE.create]: null,
+  };
 
   static override styles = css`
     #modal-body {
@@ -110,7 +111,13 @@ export class EventDialogBody extends LitElement {
                 placeholder="End Date"
                 value=${this.event?.endStr}
               />
-              <input type="submit" value="${this.mode === DIALOG_MODE.create ? "Add" : "Update"} Event" id="submission" />
+              <input
+                type="submit"
+                value="${this.mode === DIALOG_MODE.create
+                  ? 'Add'
+                  : 'Update'} Event"
+                id="submission"
+              />
             </form>`}
       </div>
     `;

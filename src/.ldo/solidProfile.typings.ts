@@ -1,4 +1,4 @@
-import { ContextDefinition } from "jsonld";
+import {ContextDefinition} from 'jsonld';
 
 /**
  * =============================================================================
@@ -10,17 +10,17 @@ import { ContextDefinition } from "jsonld";
  * SolidProfileShape Type
  */
 export interface SolidProfileShape {
-  "@id"?: string;
-  "@context"?: ContextDefinition;
+  '@id'?: string;
+  '@context'?: ContextDefinition;
   /**
    * Defines the node as a Person (from Schema.org) | Defines the node as a Person (from foaf)
    */
   type: (
     | {
-        "@id": "Person";
+        '@id': 'Person';
       }
     | {
-        "@id": "Person2";
+        '@id': 'Person2';
       }
   )[];
   /**
@@ -43,7 +43,7 @@ export interface SolidProfileShape {
    * A link to the person's photo
    */
   hasPhoto?: {
-    "@id": string;
+    '@id': string;
   };
   /**
    * Photo link but in string form
@@ -77,43 +77,43 @@ export interface SolidProfileShape {
    * The user's LDP inbox to which apps can post notifications
    */
   inbox: {
-    "@id": string;
+    '@id': string;
   };
   /**
    * The user's preferences
    */
   preferencesFile?: {
-    "@id": string;
+    '@id': string;
   };
   /**
    * The location of a Solid storage server related to this WebId
    */
   storage?: {
-    "@id": string;
+    '@id': string;
   }[];
   /**
    * The user's account
    */
   account?: {
-    "@id": string;
+    '@id': string;
   };
   /**
    * A registry of all types used on the user's Pod (for private access only)
    */
   privateTypeIndex?: {
-    "@id": string;
+    '@id': string;
   }[];
   /**
    * A registry of all types used on the user's Pod (for public access)
    */
   publicTypeIndex?: {
-    "@id": string;
+    '@id': string;
   }[];
   /**
    * A list of WebIds for all the people this user knows.
    */
   knows?: {
-    "@id": string;
+    '@id': string;
   }[];
 }
 
@@ -121,8 +121,8 @@ export interface SolidProfileShape {
  * AddressShape Type
  */
 export interface AddressShape {
-  "@id"?: string;
-  "@context"?: ContextDefinition;
+  '@id'?: string;
+  '@context'?: ContextDefinition;
   /**
    * The name of the user's country of residence
    */
@@ -149,50 +149,50 @@ export interface AddressShape {
  * EmailShape Type
  */
 export interface EmailShape {
-  "@id"?: string;
-  "@context"?: ContextDefinition;
+  '@id'?: string;
+  '@context'?: ContextDefinition;
   /**
    * The type of email.
    */
   type?:
     | {
-        "@id": "Dom";
+        '@id': 'Dom';
       }
     | {
-        "@id": "Home";
+        '@id': 'Home';
       }
     | {
-        "@id": "ISDN";
+        '@id': 'ISDN';
       }
     | {
-        "@id": "Internet";
+        '@id': 'Internet';
       }
     | {
-        "@id": "Intl";
+        '@id': 'Intl';
       }
     | {
-        "@id": "Label";
+        '@id': 'Label';
       }
     | {
-        "@id": "Parcel";
+        '@id': 'Parcel';
       }
     | {
-        "@id": "Postal";
+        '@id': 'Postal';
       }
     | {
-        "@id": "Pref";
+        '@id': 'Pref';
       }
     | {
-        "@id": "Work";
+        '@id': 'Work';
       }
     | {
-        "@id": "X400";
+        '@id': 'X400';
       };
   /**
    * The value of an email as a mailto link (Example <mailto:jane@example.com>)
    */
   value: {
-    "@id": string;
+    '@id': string;
   };
 }
 
@@ -200,50 +200,50 @@ export interface EmailShape {
  * PhoneNumberShape Type
  */
 export interface PhoneNumberShape {
-  "@id"?: string;
-  "@context"?: ContextDefinition;
+  '@id'?: string;
+  '@context'?: ContextDefinition;
   /**
    * They type of Phone Number
    */
   type?:
     | {
-        "@id": "Dom";
+        '@id': 'Dom';
       }
     | {
-        "@id": "Home";
+        '@id': 'Home';
       }
     | {
-        "@id": "ISDN";
+        '@id': 'ISDN';
       }
     | {
-        "@id": "Internet";
+        '@id': 'Internet';
       }
     | {
-        "@id": "Intl";
+        '@id': 'Intl';
       }
     | {
-        "@id": "Label";
+        '@id': 'Label';
       }
     | {
-        "@id": "Parcel";
+        '@id': 'Parcel';
       }
     | {
-        "@id": "Postal";
+        '@id': 'Postal';
       }
     | {
-        "@id": "Pref";
+        '@id': 'Pref';
       }
     | {
-        "@id": "Work";
+        '@id': 'Work';
       }
     | {
-        "@id": "X400";
+        '@id': 'X400';
       };
   /**
    * The value of a phone number as a tel link (Example <tel:555-555-5555>)
    */
   value: {
-    "@id": string;
+    '@id': string;
   };
 }
 
@@ -251,30 +251,30 @@ export interface PhoneNumberShape {
  * TrustedAppShape Type
  */
 export interface TrustedAppShape {
-  "@id"?: string;
-  "@context"?: ContextDefinition;
+  '@id'?: string;
+  '@context'?: ContextDefinition;
   /**
    * The level of access provided to this origin
    */
   mode: (
     | {
-        "@id": "Append";
+        '@id': 'Append';
       }
     | {
-        "@id": "Control";
+        '@id': 'Control';
       }
     | {
-        "@id": "Read";
+        '@id': 'Read';
       }
     | {
-        "@id": "Write";
+        '@id': 'Write';
       }
   )[];
   /**
    * The app origin the user trusts
    */
   origin: {
-    "@id": string;
+    '@id': string;
   };
 }
 
@@ -282,8 +282,8 @@ export interface TrustedAppShape {
  * RSAPublicKeyShape Type
  */
 export interface RSAPublicKeyShape {
-  "@id"?: string;
-  "@context"?: ContextDefinition;
+  '@id'?: string;
+  '@context'?: ContextDefinition;
   /**
    * RSA Modulus
    */
