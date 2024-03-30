@@ -2,8 +2,8 @@ import {LitElement, html, css, TemplateResult} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@polymer/iron-icons/iron-icons.js';
-import {SimpleEventObj} from './calendar-data-provider';
 import {DIALOG_MODE} from './constants/DIALOG_MODE';
+import {EventImpl} from '@fullcalendar/core/internal';
 
 /**
  * An example element.
@@ -19,10 +19,10 @@ export class EventDialogBody extends LitElement {
   close?: () => void;
 
   @property()
-  submit?: (evt: SimpleEventObj) => void;
+  submit?: (evt: EventImpl, mode: DIALOG_MODE) => void;
 
   @property()
-  event?: SimpleEventObj;
+  event?: EventImpl;
 
   @property({reflect: true})
   mode: DIALOG_MODE = DIALOG_MODE.create;
@@ -40,7 +40,7 @@ export class EventDialogBody extends LitElement {
   };
 
   static override styles = css`
-    #modal-body {
+    .modal-body {
       display: flex;
       flex-direction: column;
       padding: 8px;
@@ -64,10 +64,14 @@ export class EventDialogBody extends LitElement {
     const formData = new FormData(form);
     form.reset();
 
-    const title = (formData.get('title') as string | null) || '';
-    const startStr = (formData.get('startDate') as string | null) || '';
-    const endStr = (formData.get('endDate') as string | null) || '';
-    this.submit?.({title, startStr, endStr});
+    if (!this.event) {
+      this.close?.();
+      return;
+    }
+    this.event.setProp('title', (formData.get('title') as string | null) || '');
+    this.event.setStart((formData.get('startDate') as string | null) || '');
+    this.event.setEnd((formData.get('endDate') as string | null) || '');
+    this.submit?.(this.event, this.mode);
     this.close?.();
   }
 
@@ -84,14 +88,17 @@ export class EventDialogBody extends LitElement {
           <paper-icon-button
             id="close-button"
             icon="close"
-            @click=${this?.close}
+            @click=${() => {
+              if (this.mode === DIALOG_MODE.create) this.event?.remove();
+              this.close?.();
+            }}
           ></paper-icon-button>
         </span>
         ${this.mode === DIALOG_MODE.view
-          ? html`<section>
+          ? html`<section class="modal-body">
               <h2>${this.event?.title}</h2>
             </section>`
-          : html` <form @submit=${this._onSubmit} id="modal-body">
+          : html` <form @submit=${this._onSubmit} class="modal-body">
               <input
                 autofocus
                 type="description"

@@ -5,16 +5,17 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import './event-dialog-body.ts';
-import {SimpleEventObj} from './types.js';
+import {EventLdoObj} from './types.js';
 import {DIALOG_MODE} from './constants/DIALOG_MODE.js';
+import {EventImpl} from '@fullcalendar/core/internal';
 
 @customElement('solid-calendar-internal')
 export class SolidCalendarInternal extends LitElement {
   @property()
-  events: SimpleEventObj[] = [];
+  events: EventLdoObj[] = [];
 
   @property()
-  commit: (evt: SimpleEventObj) => void = () => {
+  commit: (evt: EventImpl, mode: DIALOG_MODE) => void = () => {
     console.error('commit property not defined');
   };
 
@@ -22,7 +23,7 @@ export class SolidCalendarInternal extends LitElement {
   calendar?: Calendar;
 
   @state()
-  event?: SimpleEventObj;
+  event?: EventImpl | null;
 
   @state()
   modeLaunchState: DIALOG_MODE = DIALOG_MODE.create;
@@ -54,19 +55,17 @@ export class SolidCalendarInternal extends LitElement {
       select: (info) => {
         const root = this.renderRoot as ShadowRoot;
         const dialog = root.getElementById('add-event') as HTMLDialogElement;
-        this.event = {startStr: info.startStr, endStr: info.endStr};
+        this.event = this.calendar?.addEvent(info);
         this.modeLaunchState = DIALOG_MODE.create;
         dialog.showModal();
+      },
+      eventDrop: (info) => {
+        this.commit?.(info.event as EventImpl, DIALOG_MODE.edit);
       },
       eventClick: (info) => {
         const root = this.renderRoot as ShadowRoot;
         const dialog = root.getElementById('add-event') as HTMLDialogElement;
-        this.event = {
-          startStr: info.event.startStr,
-          endStr: info.event.endStr,
-          title: info.event.title,
-          extendedProps: info.event.extendedProps,
-        };
+        this.event = info.event;
         this.modeLaunchState = DIALOG_MODE.view;
         dialog.showModal();
       },
@@ -81,18 +80,14 @@ export class SolidCalendarInternal extends LitElement {
     dialog.close();
   }
 
-  submitEvent(evt: SimpleEventObj) {
-    this.calendar?.addEvent(evt);
-    this.commit?.(evt);
-  }
-
   protected override render() {
     return html`
       <dialog id="add-event">
         <event-dialog-body
           .mode=${this.modeLaunchState}
           .close=${() => this.closeModal()}
-          .submit=${(evt: SimpleEventObj) => this.submitEvent(evt)}
+          .submit=${(evt: EventImpl, mode: DIALOG_MODE) =>
+            this.commit?.(evt, mode)}
           .event=${this.event}
         ></event-dialog-body>
       </dialog>

@@ -1,4 +1,4 @@
-export type SimpleEventObj = {
+export type EventLdoObj = {
   title?: string;
   startStr: string;
   endStr: string;

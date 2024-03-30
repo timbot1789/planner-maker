@@ -6,12 +6,14 @@ import {
   SolidLdoDataset,
   createSolidLdoDataset,
   commitData,
+  changeData,
 } from '@ldo/solid';
 import {v4} from 'uuid';
 import './solid-calendar-internal.ts';
 import {ISolidAuthContext, solidAuthContext} from './solid-auth-context';
 import {EventShShapeType} from './.ldo/event.shapeTypes';
-import {SimpleEventObj} from './types.js';
+import {EventImpl} from '@fullcalendar/core/internal';
+import {DIALOG_MODE} from './constants/DIALOG_MODE.js';
 
 @customElement('solid-calendar')
 export class SolidCalendar extends LitElement {
@@ -31,30 +33,45 @@ export class SolidCalendar extends LitElement {
   @state()
   loading = true;
 
-  async submitEvent(info: SimpleEventObj) {
+  async submitEvent(info: EventImpl, mode: DIALOG_MODE) {
     if (!this.calendarContainer || !this.solidLdo) return;
+    let result;
 
-    // Create event
-    const indexResource = this.calendarContainer.child(`event-${v4()}.ttl`);
-    // Create new data of type "event" where the subject is the index
-    // resource's uri, and write any changes to the indexResource.
-    const event = this.solidLdo.createData(
-      EventShShapeType,
-      indexResource.uri,
-      indexResource
-    );
+    if (mode === DIALOG_MODE.create) {
+      // Create event
+      const indexResource = this.calendarContainer.child(`event-${v4()}.ttl`);
+      // Create new data of type "event" where the subject is the index
+      // resource's uri, and write any changes to the indexResource.
+      const event = this.solidLdo.createData(
+        EventShShapeType,
+        indexResource.uri,
+        indexResource
+      );
 
-    event.name = info.title || '';
-    event.type = {'@id': 'Event'};
-    event.startDate = info.startStr;
-    event.endDate = info.endStr;
-    event.organizer = 'http://localhost:3001/tester2/';
-    event.attendees = ['http://localhost:3001/tester2/'];
-    event.location = 'Boston, MA';
-    event.about = 'Thing';
-    // The commitData function handles sending the data to the Pod.
-    const result = await commitData(event);
-    if (result.isError) {
+      event.name = info.title || '';
+      event.type = {'@id': 'Event'};
+      event.startDate = info.startStr;
+      event.endDate = info.endStr;
+      event.organizer = 'http://localhost:3001/tester2/';
+      event.attendees = ['http://localhost:3001/tester2/'];
+      event.location = 'Boston, MA';
+      event.about = 'Thing';
+      // The commitData function handles sending the data to the Pod.
+      result = await commitData(event);
+    } else if (mode === DIALOG_MODE.edit) {
+      const eventLdo = this.solidLdo
+        .usingType(EventShShapeType)
+        .fromSubject(info.extendedProps['@id']);
+      const eventLdoResource = this.solidLdo.getResource(
+        info.extendedProps['@id']
+      );
+      const cEvent = changeData(eventLdo, eventLdoResource);
+      cEvent.name = info.title || '';
+      cEvent.startDate = info.startStr;
+      cEvent.endDate = info.endStr;
+      result = await commitData(cEvent);
+    }
+    if (result?.isError) {
       alert(result.message);
     }
     await this.calendarContainer.read();
@@ -133,7 +150,8 @@ export class SolidCalendar extends LitElement {
           this.loading
             ? ''
             : html`<solid-calendar-internal
-                .commit=${(info: SimpleEventObj) => this.submitEvent(info)}
+                .commit=${(info: EventImpl, mode: DIALOG_MODE) =>
+                  this.submitEvent(info, mode)}
                 .events=${this._mapToCalendarEvents()}
               ></solid-calendar-internal>`
         }
