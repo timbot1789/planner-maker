@@ -147,16 +147,16 @@ export class EventDialogBody extends LitElement {
                 value=${this.event?.title}
               />
               <input
-                type="date"
+                type=${this.event?.allDay ? "date" : "datetime-local"}
                 name="startDate"
                 placeholder="Start Date"
-                value=${this.event?.startStr}
+                value=${this.event?.allDay ? this.event?.startStr : this.event?.startStr.split('-', 3).join('-')}
               />
               <input
-                type="date"
+                type=${this.event?.allDay ? "date" : "datetime-local"}
                 name="endDate"
                 placeholder="End Date"
-                value=${this.event?.endStr}
+                value=${this.event?.allDay ? this.event?.endStr: this.event?.endStr.split('-', 3).join('-')}
               />
               <input
                 type="submit"
