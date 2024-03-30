@@ -36,6 +36,14 @@ export class SolidCalendar extends LitElement {
   async submitEvent(info: EventImpl, mode: DIALOG_MODE) {
     if (!this.calendarContainer || !this.solidLdo) return;
     let result;
+    if (mode === DIALOG_MODE.delete) {
+      const eventLdoResource = this.solidLdo.getResource(
+        info.extendedProps['@id']
+      );
+      info.remove();
+      eventLdoResource.delete();
+      return;
+    }
 
     if (mode === DIALOG_MODE.create) {
       // Create event

@@ -29,14 +29,33 @@ export class EventDialogBody extends LitElement {
 
   dialogButtons: {[key in DIALOG_MODE]: TemplateResult | null} = {
     [DIALOG_MODE.view]: html`<paper-icon-button
-      icon="create"
-      @click=${() => (this.mode = DIALOG_MODE.edit)}
-    ></paper-icon-button>`,
+        icon="create"
+        @click=${() => (this.mode = DIALOG_MODE.edit)}
+      ></paper-icon-button>
+      <paper-icon-button
+        icon="delete"
+        @click=${() => {
+          if (this.event) {
+            this.submit?.(this.event, DIALOG_MODE.delete);
+            this._close();
+          }
+        }}
+      ></paper-icon-button>`,
     [DIALOG_MODE.edit]: html`<paper-icon-button
-      icon="visibility"
-      @click=${() => (this.mode = DIALOG_MODE.view)}
-    ></paper-icon-button>`,
+        icon="visibility"
+        @click=${() => (this.mode = DIALOG_MODE.view)}
+      ></paper-icon-button>
+      <paper-icon-button
+        icon="delete"
+        @click=${() => {
+          if (this.event) {
+            this.submit?.(this.event, DIALOG_MODE.delete);
+            this._close();
+          }
+        }}
+      ></paper-icon-button> `,
     [DIALOG_MODE.create]: null,
+    [DIALOG_MODE.delete]: null,
   };
 
   static override styles = css`
@@ -72,7 +91,12 @@ export class EventDialogBody extends LitElement {
     this.event.setStart((formData.get('startDate') as string | null) || '');
     this.event.setEnd((formData.get('endDate') as string | null) || '');
     this.submit?.(this.event, this.mode);
-    this.close?.();
+    this._close();
+  }
+
+  private _close() {
+    this.mode = DIALOG_MODE.view
+              this.close?.();
   }
 
   override render() {
@@ -90,7 +114,7 @@ export class EventDialogBody extends LitElement {
             icon="close"
             @click=${() => {
               if (this.mode === DIALOG_MODE.create) this.event?.remove();
-              this.close?.();
+              this._close();
             }}
           ></paper-icon-button>
         </span>
