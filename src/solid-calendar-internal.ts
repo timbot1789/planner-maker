@@ -4,7 +4,9 @@ import {Calendar} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import iCalendarPlugin from '@fullcalendar/icalendar';
 import './event-dialog-body.ts';
+import './import-calendar-button.ts';
 import {EventLdoObj} from './types.js';
 import {DIALOG_MODE} from './constants/DIALOG_MODE.js';
 import {EventImpl} from '@fullcalendar/core/internal';
@@ -44,7 +46,12 @@ export class SolidCalendarInternal extends LitElement {
     const div = document.createElement('div');
     root.append(div);
     this.calendar = new Calendar(div, {
-      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+      plugins: [
+        dayGridPlugin,
+        timeGridPlugin,
+        interactionPlugin,
+        iCalendarPlugin,
+      ],
       headerToolbar: {
         left: 'prev,next',
         center: 'title',
@@ -70,6 +77,15 @@ export class SolidCalendarInternal extends LitElement {
         this.modeLaunchState = DIALOG_MODE.view;
         dialog.showModal();
       },
+      eventSourceSuccess: (content, response) => {
+        if (response?.url.search('blob') === 0) {
+          content.forEach((event) => {
+            event.startStr = event.start;
+            event.endStr = event.end;
+            this.commit(event as EventImpl, DIALOG_MODE.create);
+          });
+        }
+      },
     });
 
     this.calendar.render();
@@ -93,6 +109,9 @@ export class SolidCalendarInternal extends LitElement {
           .event=${this.event}
         ></event-dialog-body>
       </dialog>
+      <import-calendar-button
+        .calendar=${this.calendar}
+      ></import-calendar-button>
     `;
   }
 }
