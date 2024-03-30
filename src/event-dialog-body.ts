@@ -19,9 +19,6 @@ export class EventDialogBody extends LitElement {
   close?: () => void;
 
   @property()
-  submit?: (evt: EventImpl, mode: DIALOG_MODE) => void;
-
-  @property()
   event?: EventImpl;
 
   @property({reflect: true})
@@ -36,7 +33,7 @@ export class EventDialogBody extends LitElement {
       <md-icon-button
         @click=${() => {
           if (this.event) {
-            this.submit?.(this.event, DIALOG_MODE.delete);
+            this.event.remove();
             this._close();
           }
         }}
@@ -49,7 +46,7 @@ export class EventDialogBody extends LitElement {
       <md-icon-button
         @click=${() => {
           if (this.event) {
-            this.submit?.(this.event, DIALOG_MODE.delete);
+            this.event.remove();
             this._close();
           }
         }}
@@ -99,7 +96,6 @@ export class EventDialogBody extends LitElement {
     this.event.setProp('title', (formData.get('title') as string | null) || '');
     this.event.setStart((formData.get('startDate') as string | null) || '');
     this.event.setEnd((formData.get('endDate') as string | null) || '');
-    this.submit?.(this.event, this.mode);
     this._close();
   }
 
