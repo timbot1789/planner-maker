@@ -114,8 +114,12 @@ export class EventDialogBody extends LitElement {
         href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css"
         type="text/css"
       />
-      
-    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet" type="text/css">
+
+      <link
+        href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined"
+        rel="stylesheet"
+        type="text/css"
+      />
       <div id="modal-container">
         <span id="modal-header">
           ${this.dialogButtons[this.mode]}
@@ -125,7 +129,8 @@ export class EventDialogBody extends LitElement {
               if (this.mode === DIALOG_MODE.create) this.event?.remove();
               this._close();
             }}
-            ><md-icon >close</md-icon></md-icon-button>
+            ><md-icon>close</md-icon></md-icon-button
+          >
         </span>
         ${this.mode === DIALOG_MODE.view
           ? html`<section class="modal-body">
