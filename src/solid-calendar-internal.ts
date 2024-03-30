@@ -34,6 +34,7 @@ export class SolidCalendarInternal extends LitElement {
       border-radius: 8px;
       box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.4);
       padding: 0px;
+      min-width: 160px;
     }
   `;
 
@@ -77,6 +78,7 @@ export class SolidCalendarInternal extends LitElement {
   closeModal() {
     const root = this.renderRoot as ShadowRoot;
     const dialog = root.getElementById('add-event') as HTMLDialogElement;
+    this.modeLaunchState = DIALOG_MODE.create;
     dialog.close();
   }
 
