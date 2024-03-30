@@ -75,6 +75,14 @@ export class EventDialogBody extends LitElement {
       width: 100%;
       background-color: #f2f2f2;
     }
+    hr {
+      border: 0;
+      clear: both;
+      display: block;
+      width: 96%;
+      background-color: #000000;
+      height: 1px;
+    }
   `;
 
   private _onSubmit(e: SubmitEvent) {
@@ -84,7 +92,7 @@ export class EventDialogBody extends LitElement {
     form.reset();
 
     if (!this.event) {
-      this.close?.();
+      this._close();
       return;
     }
     this.event.setProp('title', (formData.get('title') as string | null) || '');
@@ -95,8 +103,7 @@ export class EventDialogBody extends LitElement {
   }
 
   private _close() {
-    this.mode = DIALOG_MODE.view
-              this.close?.();
+    this.close?.();
   }
 
   override render() {
@@ -120,7 +127,16 @@ export class EventDialogBody extends LitElement {
         </span>
         ${this.mode === DIALOG_MODE.view
           ? html`<section class="modal-body">
-              <h2>${this.event?.title}</h2>
+              <strong>${this.event?.title}</strong>
+              <hr />
+              <p>
+                ${this.event?.start?.toLocaleDateString('en-us', {
+                  weekday: 'long',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+                - ${this.event?.end?.toLocaleDateString()}
+              </p>
             </section>`
           : html` <form @submit=${this._onSubmit} class="modal-body">
               <input
