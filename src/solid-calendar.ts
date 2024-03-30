@@ -40,7 +40,6 @@ export class SolidCalendar extends LitElement {
       const eventLdoResource = this.solidLdo.getResource(
         info.extendedProps['@id']
       );
-      info.remove();
       eventLdoResource.delete();
       return;
     }
@@ -67,7 +66,7 @@ export class SolidCalendar extends LitElement {
       // The commitData function handles sending the data to the Pod.
       result = await commitData(event);
       if (!result.isError) {
-        info.setExtendedProp('@id', result.results[0].resource.uri)
+        info.setExtendedProp('@id', result.results[0].resource.uri);
       }
     } else if (mode === DIALOG_MODE.edit) {
       const eventLdo = this.solidLdo
@@ -159,7 +158,7 @@ export class SolidCalendar extends LitElement {
       <div>
         ${
           this.loading
-            ? ''
+            ? 'Loading...'
             : html`<solid-calendar-internal
                 .commit=${(info: EventImpl, mode: DIALOG_MODE) =>
                   this.submitEvent(info, mode)}

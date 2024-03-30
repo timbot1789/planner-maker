@@ -1,6 +1,7 @@
 import {Calendar} from '@fullcalendar/core';
 import {LitElement, html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
+import {v4} from 'uuid';
 
 /**
  * An example element.
@@ -14,13 +15,23 @@ export class ImportCalendarButton extends LitElement {
   @property()
   calendar?: Calendar;
 
+  @property()
+  setSource?: (id: string) => void;
+
   private _importCalendar() {
     const root = this.renderRoot as ShadowRoot;
     const input = root.querySelector('input');
     if (!input?.files || input.files.length < 1) return;
+    this.calendar?.changeView('dayGridYears');
     const file = input.files[0];
     const sourceUrl = URL.createObjectURL(file);
-    this.calendar?.addEventSource({url: sourceUrl, format: 'ics'});
+    const sourceId = v4();
+    this?.setSource?.(sourceId);
+    this.calendar?.addEventSource({
+      url: sourceUrl,
+      format: 'ics',
+      id: sourceId,
+    });
   }
 
   override render() {

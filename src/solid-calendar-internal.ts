@@ -22,6 +22,12 @@ export class SolidCalendarInternal extends LitElement {
   };
 
   @state()
+  currentSource?: string;
+
+  @state()
+  settingSource = false;
+
+  @state()
   calendar?: Calendar;
 
   @state()
@@ -57,6 +63,12 @@ export class SolidCalendarInternal extends LitElement {
         center: 'title',
         right: 'timeGridDay,timeGridWeek,dayGridMonth',
       },
+      views: {
+        dayGridYears: {
+          type: 'dayGrid',
+          duration: {years: 1},
+        },
+      },
       events: this.events,
       editable: true,
       selectable: true,
@@ -67,9 +79,6 @@ export class SolidCalendarInternal extends LitElement {
         this.modeLaunchState = DIALOG_MODE.create;
         dialog.showModal();
       },
-      eventDrop: (info) => {
-        this.commit?.(info.event as EventImpl, DIALOG_MODE.edit);
-      },
       eventClick: (info) => {
         const root = this.renderRoot as ShadowRoot;
         const dialog = root.getElementById('add-event') as HTMLDialogElement;
@@ -77,18 +86,39 @@ export class SolidCalendarInternal extends LitElement {
         this.modeLaunchState = DIALOG_MODE.view;
         dialog.showModal();
       },
-      eventSourceSuccess: (content, response) => {
-        if (response?.url.search('blob') === 0) {
-          content.forEach((event) => {
-            event.startStr = event.start;
-            event.endStr = event.end;
-            this.commit(event as EventImpl, DIALOG_MODE.create);
+      eventAdd: (addInfo) => {
+        this.commit(addInfo.event, DIALOG_MODE.create);
+      },
+      eventChange: (changeInfo) => {
+        if (!changeInfo.oldEvent.extendedProps['@id']) return;
+        this.commit(changeInfo.event, DIALOG_MODE.edit);
+      },
+      eventRemove: (removeInfo) => {
+        this.commit(removeInfo.event, DIALOG_MODE.delete);
+      },
+      eventSourceSuccess: () => {
+        // Kick this to the back of the event queue so the events are in the calendar
+        if (this.settingSource) {
+          setTimeout(() => {
+            this.calendar
+              ?.getEvents()
+              .filter((event) => {
+                return event.source?.id === this.currentSource;
+              })
+              .forEach((event) => this.commit(event, DIALOG_MODE.create));
+            this.calendar?.changeView('dayGridMonth');
+            this.settingSource = false;
           });
         }
       },
     });
 
     this.calendar.render();
+  }
+
+  private _setSource(id: string) {
+    this.currentSource = id;
+    this.settingSource = true;
   }
 
   closeModal() {
@@ -104,13 +134,12 @@ export class SolidCalendarInternal extends LitElement {
         <event-dialog-body
           .mode=${this.modeLaunchState}
           .close=${() => this.closeModal()}
-          .submit=${(evt: EventImpl, mode: DIALOG_MODE) =>
-            this.commit?.(evt, mode)}
           .event=${this.event}
         ></event-dialog-body>
       </dialog>
       <import-calendar-button
         .calendar=${this.calendar}
+        .setSource=${(id: string) => this._setSource(id)}
       ></import-calendar-button>
     `;
   }
