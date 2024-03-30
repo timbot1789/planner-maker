@@ -4,6 +4,7 @@ import {Calendar} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import iCalendarPlugin from '@fullcalendar/icalendar';
 import './event-dialog-body.ts';
 import {EventLdoObj} from './types.js';
 import {DIALOG_MODE} from './constants/DIALOG_MODE.js';
@@ -44,7 +45,12 @@ export class SolidCalendarInternal extends LitElement {
     const div = document.createElement('div');
     root.append(div);
     this.calendar = new Calendar(div, {
-      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+      plugins: [
+        dayGridPlugin,
+        timeGridPlugin,
+        interactionPlugin,
+        iCalendarPlugin,
+      ],
       headerToolbar: {
         left: 'prev,next',
         center: 'title',
@@ -93,6 +99,9 @@ export class SolidCalendarInternal extends LitElement {
           .event=${this.event}
         ></event-dialog-body>
       </dialog>
+      <label for="calendarImport">Import Calendar:
+        <input type="file" accept=".ics, text/calendar"></input>
+      </label>
     `;
   }
 }

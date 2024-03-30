@@ -14,6 +14,7 @@ export class SolidOidcSelector extends LitElement {
     new URL('http://localhost:3001'),
     new URL('https://login.inrupt.com'),
     new URL('https://solidcommunity.net'),
+    new URL('https://solidweb.me'),
   ];
 
   private _selectHandler(e: Event) {

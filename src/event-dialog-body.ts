@@ -1,7 +1,7 @@
 import {LitElement, html, css, TemplateResult} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
-import '@polymer/paper-icon-button/paper-icon-button.js';
-import '@polymer/iron-icons/iron-icons.js';
+import '@material/web/iconbutton/icon-button.js';
+import '@material/web/icon/icon.js';
 import {DIALOG_MODE} from './constants/DIALOG_MODE';
 import {EventImpl} from '@fullcalendar/core/internal';
 
@@ -28,32 +28,33 @@ export class EventDialogBody extends LitElement {
   mode: DIALOG_MODE = DIALOG_MODE.create;
 
   dialogButtons: {[key in DIALOG_MODE]: TemplateResult | null} = {
-    [DIALOG_MODE.view]: html`<paper-icon-button
+    [DIALOG_MODE.view]: html`<md-icon-button
         icon="create"
         @click=${() => (this.mode = DIALOG_MODE.edit)}
-      ></paper-icon-button>
-      <paper-icon-button
-        icon="delete"
+        ><md-icon>edit</md-icon></md-icon-button
+      >
+      <md-icon-button
         @click=${() => {
           if (this.event) {
             this.submit?.(this.event, DIALOG_MODE.delete);
             this._close();
           }
         }}
-      ></paper-icon-button>`,
-    [DIALOG_MODE.edit]: html`<paper-icon-button
-        icon="visibility"
+        ><md-icon>delete</md-icon></md-icon-button
+      >`,
+    [DIALOG_MODE.edit]: html`<md-icon-button
         @click=${() => (this.mode = DIALOG_MODE.view)}
-      ></paper-icon-button>
-      <paper-icon-button
-        icon="delete"
+        ><md-icon>visibility</md-icon></md-icon-button
+      >
+      <md-icon-button
         @click=${() => {
           if (this.event) {
             this.submit?.(this.event, DIALOG_MODE.delete);
             this._close();
           }
         }}
-      ></paper-icon-button> `,
+        ><md-icon>delete</md-icon></md-icon-button
+      > `,
     [DIALOG_MODE.create]: null,
     [DIALOG_MODE.delete]: null,
   };
@@ -113,17 +114,18 @@ export class EventDialogBody extends LitElement {
         href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css"
         type="text/css"
       />
+      
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet" type="text/css">
       <div id="modal-container">
         <span id="modal-header">
           ${this.dialogButtons[this.mode]}
-          <paper-icon-button
+          <md-icon-button
             id="close-button"
-            icon="close"
             @click=${() => {
               if (this.mode === DIALOG_MODE.create) this.event?.remove();
               this._close();
             }}
-          ></paper-icon-button>
+            ><md-icon >close</md-icon></md-icon-button>
         </span>
         ${this.mode === DIALOG_MODE.view
           ? html`<section class="modal-body">
