@@ -1,8 +1,9 @@
-import {LitElement, html, css} from 'lit';
+import {LitElement, html, css, TemplateResult} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@polymer/iron-icons/iron-icons.js';
-import { SimpleEventObj } from './calendar-data-provider';
+import {DIALOG_MODE} from './constants/DIALOG_MODE';
+import {EventImpl} from '@fullcalendar/core/internal';
 
 /**
  * An example element.
@@ -11,19 +12,35 @@ import { SimpleEventObj } from './calendar-data-provider';
  * @slot - This element has a slot
  * @csspart button - The button
  */
+
 @customElement('event-dialog-body')
 export class EventDialogBody extends LitElement {
   @property()
   close?: () => void;
 
   @property()
-  submit?: (evt: SimpleEventObj) => void;
+  submit?: (evt: EventImpl, mode: DIALOG_MODE) => void;
 
   @property()
-  info?: {startStr: string; endStr: string};
+  event?: EventImpl;
+
+  @property({reflect: true})
+  mode: DIALOG_MODE = DIALOG_MODE.create;
+
+  dialogButtons: {[key in DIALOG_MODE]: TemplateResult | null} = {
+    [DIALOG_MODE.view]: html`<paper-icon-button
+      icon="create"
+      @click=${() => (this.mode = DIALOG_MODE.edit)}
+    ></paper-icon-button>`,
+    [DIALOG_MODE.edit]: html`<paper-icon-button
+      icon="visibility"
+      @click=${() => (this.mode = DIALOG_MODE.view)}
+    ></paper-icon-button>`,
+    [DIALOG_MODE.create]: null,
+  };
 
   static override styles = css`
-    #modal-body {
+    .modal-body {
       display: flex;
       flex-direction: column;
       padding: 8px;
@@ -47,10 +64,14 @@ export class EventDialogBody extends LitElement {
     const formData = new FormData(form);
     form.reset();
 
-    const title = (formData.get('title') as string | null) || '';
-    const start = (formData.get('startDate') as string | null) || '';
-    const end = (formData.get('endDate') as string | null) || '';
-    this.submit?.({title, start, end});
+    if (!this.event) {
+      this.close?.();
+      return;
+    }
+    this.event.setProp('title', (formData.get('title') as string | null) || '');
+    this.event.setStart((formData.get('startDate') as string | null) || '');
+    this.event.setEnd((formData.get('endDate') as string | null) || '');
+    this.submit?.(this.event, this.mode);
     this.close?.();
   }
 
@@ -63,33 +84,48 @@ export class EventDialogBody extends LitElement {
       />
       <div id="modal-container">
         <span id="modal-header">
+          ${this.dialogButtons[this.mode]}
           <paper-icon-button
             id="close-button"
             icon="close"
-            @click=${this?.close}
+            @click=${() => {
+              if (this.mode === DIALOG_MODE.create) this.event?.remove();
+              this.close?.();
+            }}
           ></paper-icon-button>
         </span>
-        <form @submit=${this._onSubmit} id="modal-body">
-          <input
-            autofocus
-            type="description"
-            name="title"
-            placeholder="Event Title"
-          />
-          <input
-            type="date"
-            name="startDate"
-            placeholder="Start Date"
-            value=${this.info?.startStr}
-          />
-          <input
-            type="date"
-            name="endDate"
-            placeholder="End Date"
-            value=${this.info?.endStr}
-          />
-          <input type="submit" value="Add Event" id="submission" />
-        </form>
+        ${this.mode === DIALOG_MODE.view
+          ? html`<section class="modal-body">
+              <h2>${this.event?.title}</h2>
+            </section>`
+          : html` <form @submit=${this._onSubmit} class="modal-body">
+              <input
+                autofocus
+                type="description"
+                name="title"
+                placeholder="Event Title"
+                value=${this.event?.title}
+              />
+              <input
+                type="date"
+                name="startDate"
+                placeholder="Start Date"
+                value=${this.event?.startStr}
+              />
+              <input
+                type="date"
+                name="endDate"
+                placeholder="End Date"
+                value=${this.event?.endStr}
+              />
+              <input
+                type="submit"
+                value="${this.mode === DIALOG_MODE.create
+                  ? 'Add'
+                  : 'Update'} Event"
+                id="submission"
+              />
+            </form>`}
       </div>
     `;
   }

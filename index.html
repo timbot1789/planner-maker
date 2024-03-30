@@ -10,7 +10,7 @@
       type="text/css"
     />
     <script src="/node_modules/lit/polyfill-support.js"></script>
-    <script type="module" src="/src/calendar-data-provider.ts"></script>
+    <script type="module" src="/src/solid-calendar.ts"></script>
     <script type="module" src="/src/solid-auth-context-provider.ts"></script>
     <script type="module" src="/src/solid-login-button.ts"></script>
     <script type="module" src="/src/solid-logout-button.ts"></script>
@@ -31,7 +31,7 @@
       </div>
       <div slot="isLoggedIn">
         <solid-logout-button></solid-logout-button>
-        <calendar-data-provider />
+        <solid-calendar></solid-calendar>
       </div>
     </solid-auth-context-provider>
   </body>

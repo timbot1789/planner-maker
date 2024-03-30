@@ -12,7 +12,6 @@ export const MakeEvent: FunctionComponent<{ mainContainer?: Container }> = ({
   const [endDate, setEndDate] = useState(""); 
   const [selectedFile, setSelectedFile] = useState<File | undefined>();
 
-
   const { createData, commitData } = useLdo();
 
   const onSubmit = useCallback(
