@@ -66,6 +66,9 @@ export class SolidCalendar extends LitElement {
       event.about = 'Thing';
       // The commitData function handles sending the data to the Pod.
       result = await commitData(event);
+      if (!result.isError) {
+        info.setExtendedProp('@id', result.results[0].resource.uri)
+      }
     } else if (mode === DIALOG_MODE.edit) {
       const eventLdo = this.solidLdo
         .usingType(EventShShapeType)
