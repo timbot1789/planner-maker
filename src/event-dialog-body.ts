@@ -129,14 +129,36 @@ export class EventDialogBody extends LitElement {
           ? html`<section class="modal-body">
               <strong>${this.event?.title}</strong>
               <hr />
-              <p>
-                ${this.event?.start?.toLocaleDateString('en-us', {
-                  weekday: 'long',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-                - ${this.event?.end?.toLocaleDateString()}
-              </p>
+              ${this.event?.allDay
+                ? html`<p>
+                    ${this.event?.start?.toLocaleDateString('en-us', {
+                      weekday: 'long',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                    -
+                    ${this.event?.end?.toLocaleDateString('en-us', {
+                      weekday: 'long',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </p>`
+                : html`<p>
+                    ${this.event?.start?.toLocaleDateString('en-us', {
+                      weekday: 'long',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                    <strong>⋅</strong> ${this.event?.start?.toLocaleTimeString(
+                      'en-us',
+                      {hour: '2-digit', minute: '2-digit'}
+                    )}
+                    -
+                    ${this.event?.end?.toLocaleTimeString('en-us', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </p>`}
             </section>`
           : html` <form @submit=${this._onSubmit} class="modal-body">
               <input
@@ -147,16 +169,20 @@ export class EventDialogBody extends LitElement {
                 value=${this.event?.title}
               />
               <input
-                type="date"
+                type=${this.event?.allDay ? 'date' : 'datetime-local'}
                 name="startDate"
                 placeholder="Start Date"
-                value=${this.event?.startStr}
+                value=${this.event?.allDay
+                  ? this.event?.startStr
+                  : this.event?.startStr.split('-', 3).join('-')}
               />
               <input
-                type="date"
+                type=${this.event?.allDay ? 'date' : 'datetime-local'}
                 name="endDate"
                 placeholder="End Date"
-                value=${this.event?.endStr}
+                value=${this.event?.allDay
+                  ? this.event?.endStr
+                  : this.event?.endStr.split('-', 3).join('-')}
               />
               <input
                 type="submit"
