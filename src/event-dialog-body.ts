@@ -162,6 +162,11 @@ export class EventDialogBody extends LitElement {
                       minute: '2-digit',
                     })}
                   </p>`}
+              <p>
+                <strong>Organizer:</strong> ${this.event?.extendedProps[
+                  'organizer'
+                ]}
+              </p>
             </section>`
           : html` <form @submit=${this._onSubmit} class="modal-body">
               <input

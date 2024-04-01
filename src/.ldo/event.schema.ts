@@ -241,6 +241,16 @@ export const eventSchema: Schema = {
               min: 0,
               max: 1,
             },
+            {
+              type: 'TripleConstraint',
+              predicate: 'http://www.w3.org/ns/solid/terms#oidcIssuer',
+              valueExpr: {
+                type: 'NodeConstraint',
+                datatype: 'http://www.w3.org/2001/XMLSchema#string',
+              },
+              min: 0,
+              max: 1,
+            },
           ],
         },
         annotations: [
