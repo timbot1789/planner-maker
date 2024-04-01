@@ -14,6 +14,7 @@ import {ISolidAuthContext, solidAuthContext} from './solid-auth-context';
 import {EventShShapeType, PersonShapeType} from './.ldo/event.shapeTypes';
 import {EventImpl} from '@fullcalendar/core/internal';
 import {DIALOG_MODE} from './constants/DIALOG_MODE.js';
+import {Person} from './.ldo/event.typings.js';
 
 @customElement('solid-calendar')
 export class SolidCalendar extends LitElement {
@@ -54,9 +55,19 @@ export class SolidCalendar extends LitElement {
         indexResource.uri,
         indexResource
       );
-      const organizer = this.solidLdo
-        .usingType(PersonShapeType)
-        .fromSubject(this.solidAuthData?.webId || '');
+      let organizer: Person = {
+        '@id': '',
+        type: {
+          '@id': 'Person',
+        },
+      };
+      if (info?.source) {
+        organizer['@id'] = info.extendedProps['organizer'] as string;
+      } else {
+        organizer = this.solidLdo
+          .usingType(PersonShapeType)
+          .fromSubject(this.solidAuthData?.webId || '');
+      }
 
       event.name = info.title;
       event.type = {'@id': 'Event'};
@@ -70,6 +81,7 @@ export class SolidCalendar extends LitElement {
       result = await commitData(event);
       if (!result.isError) {
         info.setExtendedProp('@id', result.results[0].resource.uri);
+        info.setExtendedProp('organizer', organizer.name2 || organizer['@id']);
       }
     } else if (mode === DIALOG_MODE.edit) {
       const eventLdo = this.solidLdo
@@ -131,10 +143,12 @@ export class SolidCalendar extends LitElement {
         const event = this.solidLdo
           ?.usingType(EventShShapeType)
           .fromSubject(child.uri);
-        const webIdResource = this.solidLdo?.getResource(
-          event?.organizer?.['@id'] || ''
-        );
-        webIdResource?.read();
+        try {
+          const webIdResource = this.solidLdo?.getResource(
+            event?.organizer?.['@id'] || ''
+          );
+          webIdResource?.read();
+        } catch {}
       })
     );
     this.loading = false;
@@ -159,8 +173,7 @@ export class SolidCalendar extends LitElement {
         title: event?.name,
         start: event?.startDate,
         end: event?.endDate,
-        organizer:
-          event?.organizer?.name2 || event?.organizer?.['@id'] || 'unknown',
+        organizer: event?.organizer?.name2 || event?.organizer?.['@id'],
       };
     });
   }
