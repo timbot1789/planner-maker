@@ -1,6 +1,7 @@
-# A Simple Solid Calendar/Planner
+# A Simple Solid Calendar
 
-This project was created for the [March 2024 Solid Hackathon](https://solidhack.org/). The goal is to produce an easy-to-use calendar application that integrates with a solid pod and can be easily embedded in other solid apps.
+This project was created for the [March 2024 Solid Hackathon](https://solidhack.org/). The goal is to produce an easy-to-use calendar application that produces interoperable data and that can be embedded into other solid apps.
+
 
 ## Setup
 
