@@ -11,7 +11,7 @@ import {
 import {v4} from 'uuid';
 import './solid-calendar-internal.ts';
 import {ISolidAuthContext, solidAuthContext} from './solid-auth-context';
-import {EventShShapeType} from './.ldo/event.shapeTypes';
+import {EventShShapeType, PersonShapeType} from './.ldo/event.shapeTypes';
 import {EventImpl} from '@fullcalendar/core/internal';
 import {DIALOG_MODE} from './constants/DIALOG_MODE.js';
 
@@ -54,13 +54,16 @@ export class SolidCalendar extends LitElement {
         indexResource.uri,
         indexResource
       );
+      const organizer = this.solidLdo
+        .usingType(PersonShapeType)
+        .fromSubject(this.solidAuthData?.webId || '');
 
-      event.name = info.title || '';
+      event.name = info.title;
       event.type = {'@id': 'Event'};
       event.startDate = info.startStr;
       event.endDate = info.endStr;
-      event.organizer = 'http://localhost:3001/tester2/';
-      event.attendees = ['http://localhost:3001/tester2/'];
+      event.organizer = organizer;
+      event.attendees = [];
       event.location = 'Boston, MA';
       event.about = 'Thing';
       // The commitData function handles sending the data to the Pod.
@@ -140,6 +143,7 @@ export class SolidCalendar extends LitElement {
       const event = this.solidLdo
         ?.usingType(EventShShapeType)
         .fromSubject(child.uri);
+
       return {
         ...event,
         title: event?.name,

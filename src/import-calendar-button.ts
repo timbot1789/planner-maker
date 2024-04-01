@@ -32,6 +32,7 @@ export class ImportCalendarButton extends LitElement {
       format: 'ics',
       id: sourceId,
     });
+    input.value = '';
   }
 
   override render() {
