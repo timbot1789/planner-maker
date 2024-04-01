@@ -1,5 +1,6 @@
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX ex: <https://example.com/>
 BASE <http://schema.org/>
@@ -7,27 +8,35 @@ PREFIX schem: <http://schema.org/>
 
 ex:EventSh {
   a [<Event> <Thing>] ;
-  <organizer> schem:Person
-      // rdfs:label '''organizer'''
-      // rdfs:comment '''The organizer of the calander event. ''' ;
-  <name> xsd:string
+  <name> xsd:string 
       // rdfs:label '''name'''
-      // rdfs:comment '''The name of the calander event ''' ;
+      // rdfs:comment '''The name of the calendar event ''' ;
   <startDate> xsd:dateTime
       // rdfs:label '''startDate'''
       // rdfs:comment '''The time and date at which the event starts. ''' ;
   <endDate> xsd:dateTime
       // rdfs:label '''endDate'''
       // rdfs:comment '''The time and date at which the event ends. ''' ;
-  <attendees> schem:Person *
-      // rdfs:label '''attendees'''
-      // rdfs:comment '''The attendees of the calander event. ''' ;
   <location> schem:Place
       // rdfs:label '''location'''
-      // rdfs:comment '''The location at which the calander event will occur. ''' ;
+      // rdfs:comment '''The location at which the calendar event will occur. ''' ;
   <about> schem:Thing
       // rdfs:label '''about'''
-      // rdfs:comment '''Additional information about the calander event''' ;
+      // rdfs:comment '''Additional information about the calendar event''' ;
+  <organizer> @schem:Person ?
+      // rdfs:label '''organizer'''
+      // rdfs:comment '''The organizer of the calendar event. ''' ;
+  <attendees> @schem:Person *
+      // rdfs:label '''attendees'''
+      // rdfs:comment '''The attendees of the calendar event. ''' ;
+}
+
+#schem:Person IRI {
+schem:Person {
+  a [ foaf:Person ] ;
+  <givenName> schem:Text ?; 
+  <familyName> schem:Text ?;
+  foaf:name xsd:string ?;
 }
 // rdfs:label '''Event'''
-// rdfs:comment '''A calander event, this could be an online meeting or in-person event'''
+// rdfs:comment '''A calendar event, this could be an online meeting or in-person event'''

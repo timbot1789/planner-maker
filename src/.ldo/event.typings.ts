@@ -20,11 +20,7 @@ export interface EventSh {
         '@id': 'Thing';
       };
   /**
-   * The organizer of the calander event.
-   */
-  organizer: string;
-  /**
-   * The name of the calander event
+   * The name of the calendar event
    */
   name: string;
   /**
@@ -36,15 +32,33 @@ export interface EventSh {
    */
   endDate: string;
   /**
-   * The attendees of the calander event.
-   */
-  attendees?: string[];
-  /**
-   * The location at which the calander event will occur.
+   * The location at which the calendar event will occur.
    */
   location: string;
   /**
-   * Additional information about the calander event
+   * Additional information about the calendar event
    */
   about: string;
+  /**
+   * The organizer of the calendar event.
+   */
+  organizer?: Person;
+  /**
+   * The attendees of the calendar event.
+   */
+  attendees?: Person[];
+}
+
+/**
+ * Person Type
+ */
+export interface Person {
+  '@id'?: string;
+  '@context'?: ContextDefinition;
+  type: {
+    '@id': 'Person';
+  };
+  givenName?: string;
+  familyName?: string;
+  name2?: string;
 }
