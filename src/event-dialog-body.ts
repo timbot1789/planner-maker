@@ -165,7 +165,7 @@ export class EventDialogBody extends LitElement {
               <p>
                 <strong>Organizer:</strong> ${this.event?.extendedProps[
                   'organizer'
-                ]}
+                ] || 'unknown'}
               </p>
             </section>`
           : html` <form @submit=${this._onSubmit} class="modal-body">
