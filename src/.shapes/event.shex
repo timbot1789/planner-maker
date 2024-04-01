@@ -3,6 +3,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX ex: <https://example.com/>
+PREFIX solid: <http://www.w3.org/ns/solid/terms#>
 BASE <http://schema.org/>
 PREFIX schem: <http://schema.org/>
 
@@ -37,6 +38,7 @@ schem:Person {
   <givenName> schem:Text ?; 
   <familyName> schem:Text ?;
   foaf:name xsd:string ?;
+  solid:oidcIssuer xsd:string ?;
 }
 // rdfs:label '''Event'''
 // rdfs:comment '''A calendar event, this could be an online meeting or in-person event'''

@@ -48,6 +48,10 @@ export const eventContext: ContextDefinition = {
     '@id': 'http://xmlns.com/foaf/0.1/name',
     '@type': 'http://www.w3.org/2001/XMLSchema#string',
   },
+  oidcIssuer: {
+    '@id': 'http://www.w3.org/ns/solid/terms#oidcIssuer',
+    '@type': 'http://www.w3.org/2001/XMLSchema#string',
+  },
   attendees: {
     '@id': 'http://schema.org/attendees',
     '@type': '@id',

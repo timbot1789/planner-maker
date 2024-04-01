@@ -126,6 +126,17 @@ export class SolidCalendar extends LitElement {
     await Promise.all(
       this.calendarContainer.children().map((child) => child.read())
     );
+    await Promise.all(
+      this.calendarContainer.children().map((child) => {
+        const event = this.solidLdo
+          ?.usingType(EventShShapeType)
+          .fromSubject(child.uri);
+        const webIdResource = this.solidLdo?.getResource(
+          event?.organizer?.['@id'] || ''
+        );
+        webIdResource?.read();
+      })
+    );
     this.loading = false;
   }
 
@@ -143,12 +154,13 @@ export class SolidCalendar extends LitElement {
       const event = this.solidLdo
         ?.usingType(EventShShapeType)
         .fromSubject(child.uri);
-
       return {
         ...event,
         title: event?.name,
         start: event?.startDate,
         end: event?.endDate,
+        organizer:
+          event?.organizer?.name2 || event?.organizer?.['@id'] || 'unknown',
       };
     });
   }

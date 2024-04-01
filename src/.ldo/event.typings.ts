@@ -61,4 +61,5 @@ export interface Person {
   givenName?: string;
   familyName?: string;
   name2?: string;
+  oidcIssuer?: string;
 }
