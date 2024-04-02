@@ -44,9 +44,7 @@ export class SolidCalendar extends LitElement {
       );
       eventLdoResource.delete();
       return;
-    }
-
-    else if (mode === DIALOG_MODE.create) {
+    } else if (mode === DIALOG_MODE.create) {
       // Create event
       const indexResource = this.calendarContainer.child(`event-${v4()}.ttl`);
       // Create new data of type "event" where the subject is the index
@@ -82,9 +80,7 @@ export class SolidCalendar extends LitElement {
         info.setExtendedProp('@id', result.results[0].resource.uri);
         info.setExtendedProp('organizer', organizer.name2 || organizer['@id']);
       }
-    }
-
-    else if (mode === DIALOG_MODE.edit) {
+    } else if (mode === DIALOG_MODE.edit) {
       const eventLdo = this.solidLdo
         .usingType(EventShShapeType)
         .fromSubject(info.extendedProps['@id']);

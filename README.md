@@ -2,7 +2,6 @@
 
 This project was created for the [March 2024 Solid Hackathon](https://solidhack.org/). The goal is to produce an easy-to-use calendar application that produces interoperable data and that can be embedded into other solid apps.
 
-
 ## Setup
 
 Install dependencies:
@@ -77,4 +76,3 @@ npm run format
 ```
 
 Prettier has not been configured to run when committing files, but this can be added with Husky and `pretty-quick`. See the [prettier.io](https://prettier.io/) site for instructions.
-
