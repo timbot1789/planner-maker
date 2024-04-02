@@ -11,17 +11,23 @@ import {EVENTS} from './constants/EVENTS';
 @customElement('solid-oidc-selector')
 export class SolidOidcSelector extends LitElement {
   @property() oidcOptions = [
-    new URL('http://localhost:3001'),
-    new URL('https://login.inrupt.com'),
-    new URL('https://solidcommunity.net'),
-    new URL('https://solidweb.me'),
+    'http://localhost:3001',
+    'https://login.inrupt.com',
+    'https://solidcommunity.net',
+    'https://solidweb.me',
   ];
 
   private _selectHandler(e: Event) {
     const target = e.target as HTMLSelectElement;
+    let val;
+    try {
+      val = new URL(target.value);
+    } catch {
+      return;
+    }
     const evt = new CustomEvent(EVENTS.UPDATE_OIDC, {
       bubbles: true,
-      detail: target.value,
+      detail: val,
     });
     this.dispatchEvent(evt);
   }
@@ -33,11 +39,14 @@ export class SolidOidcSelector extends LitElement {
         href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css"
         type="text/css"
       />
-      <select @change=${this._selectHandler}>
+      <input type="text" value=${
+        this.oidcOptions[0]
+      } list="providers" @change=${this._selectHandler}></input>
+      <datalist id="providers">
         ${this.oidcOptions.map(
           (option) => html`<option value=${option}>${option}</option>`
         )}
-      </select>
+      </datalist>
     `;
   }
 }
