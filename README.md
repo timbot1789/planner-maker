@@ -33,7 +33,7 @@ This will get you set up with everything you need to test the app, and will auto
 However, you could use your own Solid Pod on any Solid Provider to send and receive calendar. Here are some of the popular ones to get started:
 
 - [Community Solid Server](https://solidweb.me)
-- [Solid Prototype](https://solidweb.org)
+- [Node Solid Server](https://solidweb.org)
 - [Solid Community](https://solidcommunity.net)
 - [Inrupt Pod Spaces](https://start.inrupt.com/profile)
 
@@ -41,11 +41,11 @@ The calendar events will be saved to "calendar-events" folder in your main conta
 
 # Event
 
-The ShEx shape used in this Solid App for the events in the calendar is defined in [event.shex](./src/.shapes/event.shex). They are of [Event](https://schema.org/Event/) type.
+The ShEx shape used in this Solid App for the events in the calendar is defined in [event.shex](./src/.shapes/event.shex). They are of [Event](https://schema.org/Event) type.
 
-The following properties are associated with this [Event](https://schema.org/Event/):
+The following properties are associated with this [Event](https://schema.org/Event):
 
-- organizer ([Person](https://schema.org/Person/))
+- organizer ([Person](https://schema.org/Person))
 - name ([String](https://www.w3.org/2001/XMLSchema#string))
 - startDate ([dateTime](https://www.w3.org/2001/XMLSchema#dateTime))
 - endDate ([dateTime](https://www.w3.org/2001/XMLSchema#dateTime))
