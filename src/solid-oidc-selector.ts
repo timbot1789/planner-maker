@@ -10,12 +10,9 @@ import {EVENTS} from './constants/EVENTS';
  */
 @customElement('solid-oidc-selector')
 export class SolidOidcSelector extends LitElement {
-  @property() oidcOptions = [
-    'http://localhost:3001',
-    'https://login.inrupt.com',
-    'https://solidcommunity.net',
-    'https://solidweb.me',
-  ];
+  @property({type: Array})
+  oidcOptions = [];
+
 
   private _selectHandler(e: Event) {
     const target = e.target as HTMLSelectElement;
