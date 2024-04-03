@@ -15,7 +15,8 @@
     "pod": "community-solid-server -c config/solid-config.json -p 3001 -f data/",
     "format": "prettier \"**/*.{cjs,html,js,json,md,ts}\" --ignore-path ./.eslintignore --write",
     "build:ldo": "ldo build --input src/.shapes --output src/.ldo",
-    "dev": "vite --port 4040"
+    "dev": "vite --port 4040",
+    "start": "vite --port 4040"
   },
   "keywords": [
     "web-components",
