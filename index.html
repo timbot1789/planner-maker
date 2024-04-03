@@ -31,7 +31,9 @@
   <body>
     <solid-auth-context-provider>
       <div slot="isLoggedOut">
-        <solid-oidc-selector oidcoptions='["http://localhost:3001","https://login.inrupt.com","https://solidcommunity.net","https://solidweb.me"]'></solid-oidc-selector>
+        <solid-oidc-selector
+          oidcoptions='["http://localhost:3001","https://login.inrupt.com","https://solidcommunity.net","https://solidweb.me"]'
+        ></solid-oidc-selector>
         <solid-login-button></solid-login-button>
       </div>
       <div slot="isLoggedIn">

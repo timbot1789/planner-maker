@@ -13,7 +13,6 @@ export class SolidOidcSelector extends LitElement {
   @property({type: Array})
   oidcOptions = [];
 
-
   private _selectHandler(e: Event) {
     const target = e.target as HTMLSelectElement;
     let val;
