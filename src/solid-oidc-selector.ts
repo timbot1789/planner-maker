@@ -19,6 +19,11 @@ export class SolidOidcSelector extends LitElement {
     try {
       val = new URL(target.value);
     } catch {
+      const evt = new CustomEvent(EVENTS.UPDATE_OIDC, {
+        bubbles: true,
+        detail: null,
+      });
+      this.dispatchEvent(evt);
       return;
     }
     const evt = new CustomEvent(EVENTS.UPDATE_OIDC, {
@@ -35,9 +40,7 @@ export class SolidOidcSelector extends LitElement {
         href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css"
         type="text/css"
       />
-      <input type="text" value=${
-        this.oidcOptions[0]
-      } list="providers" @change=${this._selectHandler}></input>
+      <input type="url" placeholder="Enter OIDC Provider" list="providers" @change=${this._selectHandler} required></input>
       <datalist id="providers">
         ${this.oidcOptions.map(
           (option) => html`<option value=${option}>${option}</option>`

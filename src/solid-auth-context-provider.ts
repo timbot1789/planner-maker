@@ -50,11 +50,15 @@ export class SolidAuthContextProvider extends LitElement {
   private async _handleLogin() {
     // Start the Login Process if not already logged in.
     if (!getDefaultSession().info.isLoggedIn) {
-      login({
-        oidcIssuer: this.solidAuthData.oidcProvider.toString(),
-        redirectUrl: window.location.href,
-        clientName: 'Solid Calendar',
-      });
+      if (this.solidAuthData.oidcProvider) {
+        login({
+          oidcIssuer: this.solidAuthData.oidcProvider.toString(),
+          redirectUrl: window.location.href,
+          clientName: 'Solid Calendar',
+        });
+      } else {
+        console.error('Cannot log in: No OIDC Provider Set');
+      }
     }
   }
 

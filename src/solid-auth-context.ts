@@ -1,7 +1,7 @@
 import {createContext, ContextRoot} from '@lit/context';
 
 export interface ISolidAuthContext {
-  oidcProvider: URL;
+  oidcProvider: URL | null;
   fetch: typeof globalThis.fetch;
   isLoggedIn: boolean;
   webId?: string;

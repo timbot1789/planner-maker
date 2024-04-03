@@ -147,7 +147,9 @@ export class SolidCalendar extends LitElement {
             event?.organizer?.['@id'] || ''
           );
           webIdResource?.read();
-        } catch {}
+        } catch {
+          return;
+        }
       })
     );
     this.loading = false;
