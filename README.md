@@ -41,17 +41,17 @@ The calendar events will be saved to "calendar-events" folder in your main conta
 
 # Event
 
-The ShEx shape used in this Solid App for the events in the calendar are of [Event](https://schema.org/Event) type.
+The ShEx shape used in this Solid App for the events in the calendar is defined in [event.shex](./src/.shapes/event.shex). They are of [Event](https://schema.org/Event) type.
 
 The following properties are associated with this [Event](https://schema.org/Event):
 
 - organizer ([Person](https://schema.org/Person))
 - name ([String](https://www.w3.org/2001/XMLSchema#string))
-- startTime ([dateTime](https://www.w3.org/2001/XMLSchema#dateTime))
-- endTime ([dateTime](https://www.w3.org/2001/XMLSchema#dateTime))
-- attendees ([Person](https://schema.org/Person))
-- location ([Place](https://schema.org/Place))
-- about ([Thing](https://schema.org/Thing))
+- startDate ([dateTime](https://www.w3.org/2001/XMLSchema#dateTime))
+- endDate ([dateTime](https://www.w3.org/2001/XMLSchema#dateTime))
+- attendees ([Person](https://schema.org/Person/))
+- location ([Place](https://schema.org/Place/))
+- about ([Thing](https://schema.org/Thing/))
 
 ## Linting
 
