@@ -41,7 +41,7 @@ The calendar events will be saved to "calendar-events" folder in your main conta
 
 # Event
 
-The ShEx shape used in this Solid App for the events in the calendar are of [Event](https://schema.org/Event/) type.
+The ShEx shape used in this Solid App for the events in the calendar is defined in [event.shex](./src/.shapes/event.shex). They are of [Event](https://schema.org/Event/) type.
 
 The following properties are associated with this [Event](https://schema.org/Event/):
 
