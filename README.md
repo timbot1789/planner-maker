@@ -47,8 +47,8 @@ The following properties are associated with this [Event](https://schema.org/Eve
 
 - organizer ([Person](https://schema.org/Person/))
 - name ([String](https://www.w3.org/2001/XMLSchema#string))
-- startTime ([dateTime](https://www.w3.org/2001/XMLSchema#dateTime))
-- endTime ([dateTime](https://www.w3.org/2001/XMLSchema#dateTime))
+- startDate ([dateTime](https://www.w3.org/2001/XMLSchema#dateTime))
+- endDate ([dateTime](https://www.w3.org/2001/XMLSchema#dateTime))
 - attendees ([Person](https://schema.org/Person/))
 - location ([Place](https://schema.org/Place/))
 - about ([Thing](https://schema.org/Thing/))
